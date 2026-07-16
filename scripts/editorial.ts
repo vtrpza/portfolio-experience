@@ -400,7 +400,7 @@ export async function generateArticle(
   let article = articleFromDraft(await callOpenAI(
     "draft",
     pack,
-    "Redija em português do Brasil usando somente as evidências fornecidas. Não invente fatos. Cada frase factual ou inferência deve ser sustentada pelos sourceIds do próprio bloco. Não exponha hashes ou identificadores internos. Retorne apenas os campos redacionais do schema.",
+    "Redija em português do Brasil usando somente as evidências fornecidas. Não invente fatos. Cada frase factual ou inferência deve ser sustentada pelos sourceIds do próprio bloco. O campo privacy classifica o pacote editorial e não comprova características dos documentos analisados. Não exponha hashes ou identificadores internos. Retorne apenas os campos redacionais do schema.",
     "evidence_article_draft",
     ARTICLE_DRAFT_SCHEMA,
     options,
@@ -412,7 +412,7 @@ export async function generateArticle(
     const firstAudit = audit(await callOpenAI(
       "audit",
       { evidence: pack, article },
-      "Audite cada frase quanto a factualidade, autoria, privacidade e suporte. Reprove qualquer fato novo e qualquer bloco cujos sourceIds não sustentem todas as suas frases.",
+      "Audite cada frase quanto a factualidade, autoria, privacidade e suporte. O campo privacy classifica o pacote editorial e não comprova características dos documentos analisados. Reprove qualquer fato novo e qualquer bloco cujos sourceIds não sustentem todas as suas frases.",
       "evidence_article_audit",
       AUDIT_SCHEMA,
       options,
@@ -425,7 +425,7 @@ export async function generateArticle(
   article = articleFromDraft(await callOpenAI(
     "correction",
     { evidence: pack, article, issues },
-    "Corrija somente os problemas indicados, sem criar fatos, fontes ou conclusões. Cada frase factual ou inferência deve ser sustentada pelos sourceIds do bloco. Não exponha hashes ou identificadores internos. Retorne apenas os campos redacionais do schema.",
+    "Corrija somente os problemas indicados, sem criar fatos, fontes ou conclusões. Cada frase factual ou inferência deve ser sustentada pelos sourceIds do bloco. O campo privacy classifica o pacote editorial e não comprova características dos documentos analisados. Não exponha hashes ou identificadores internos. Retorne apenas os campos redacionais do schema.",
     "evidence_article_correction",
     ARTICLE_DRAFT_SCHEMA,
     options,
@@ -436,7 +436,7 @@ export async function generateArticle(
   const finalAudit = audit(await callOpenAI(
     "final-audit",
     { evidence: pack, article },
-    "Faça a auditoria factual final frase por frase. Reprove qualquer fato novo, problema de autoria ou privacidade e qualquer bloco cujos sourceIds não sustentem todas as suas frases.",
+    "Faça a auditoria factual final frase por frase. O campo privacy classifica o pacote editorial e não comprova características dos documentos analisados. Reprove qualquer fato novo, problema de autoria ou privacidade e qualquer bloco cujos sourceIds não sustentem todas as suas frases.",
     "evidence_article_final_audit",
     AUDIT_SCHEMA,
     options,
