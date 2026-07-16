@@ -1,0 +1,44 @@
+{
+  "articleSlug": "por-que-965-documentos-nao-bastaram-neste-experimento-de-rag",
+  "hook": "Por que 965 documentos não bastaram neste experimento de RAG",
+  "caption": "Neste experimento, obter zero nas três verificações de chunks não bastou para declarar a recuperação pronta: a união das buscas ainda registrou recall@5 de 0,8125 e 3 misses no top 5.",
+  "slides": [
+    {
+      "title": "Do recorte do corpus à auditoria de chunks",
+      "body": "O recorte deste experimento começou com 12.618 registros, manteve 3.722 itens elegíveis após deduplicação e escreveu 965 documentos.",
+      "sourceIds": [
+        "build-stats"
+      ],
+      "altText": "Slide textual: o recorte começou com 12.618 registros, manteve 3.722 itens elegíveis e escreveu 965 documentos."
+    },
+    {
+      "title": "A auditoria agregada",
+      "body": "A auditoria agregada registrou 965 documentos e 8.704 chunks, sem chunks vazios, IDs de chunk duplicados ou documentos sem chunks.",
+      "sourceIds": [
+        "chunk-audit"
+      ],
+      "altText": "965 documentos e 8.704 chunks, sem chunks vazios, IDs de chunk duplicados ou documentos sem chunks."
+    },
+    {
+      "title": "A recuperação observada na avaliação de 16 consultas",
+      "body": "A união dos resultados semântico e híbrido registrou recall@5 de 0,8125 e MRR de 0,54375, mas ainda teve 3 misses entre as 16 consultas.",
+      "sourceIds": [
+        "union-eval",
+        "evaluation-scope"
+      ],
+      "altText": "A união dos resultados semântico e híbrido teve 3 misses entre as 16 consultas."
+    },
+    {
+      "title": "Escopo das conclusões",
+      "body": "Estes resultados se restringem ao corpus, à coleção, às configurações e ao ambiente deste experimento.",
+      "sourceIds": [
+        "evaluation-scope"
+      ],
+      "altText": "Os resultados se restringem ao corpus, à coleção, às configurações e ao ambiente deste experimento."
+    }
+  ],
+  "hashtags": [
+    "#RAG"
+  ],
+  "cta": "Leia o artigo completo no link da bio."
+}

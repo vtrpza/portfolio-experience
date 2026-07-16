@@ -1,0 +1,168 @@
+{
+  "slug": "por-que-965-documentos-nao-bastaram-neste-experimento-de-rag",
+  "title": "Por que 965 documentos não bastaram neste experimento de RAG",
+  "metaDescription": "Neste experimento, três verificações de chunks ficaram em zero; ainda assim, a avaliação de recuperação registrou 3 misses entre 16 consultas.",
+  "excerpt": "O corpus escrito reuniu 965 documentos e passou por verificações agregadas de chunks. Ainda assim, a união entre busca semântica e híbrida deixou 3 das 16 consultas sem o resultado esperado no top 5.",
+  "kind": "analysis",
+  "cluster": "ia-aplicada",
+  "maturity": "verified-experiment",
+  "ownership": "original",
+  "aiDisclosure": "ai-drafted-human-approved",
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Do recorte do corpus à auditoria de chunks",
+      "sourceIds": [
+        "build-stats",
+        "chunk-audit"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O recorte deste experimento começou com 12.618 registros, manteve 3.722 itens elegíveis após deduplicação e escreveu 965 documentos.",
+      "sourceIds": [
+        "build-stats"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A auditoria agregada registrou 965 documentos e 8.704 chunks, sem chunks vazios, IDs de chunk duplicados ou documentos sem chunks.",
+      "sourceIds": [
+        "chunk-audit"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "A recuperação observada na avaliação de 16 consultas",
+      "sourceIds": [
+        "retrieval-eval",
+        "evaluation-scope"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Na avaliação com 16 consultas, a busca semântica registrou recall@5 de 0,6875 e MRR de 0,4798. A busca híbrida registrou recall@5 de 0,75 e MRR de 0,5021.",
+      "sourceIds": [
+        "retrieval-eval",
+        "evaluation-scope"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A união dos resultados semântico e híbrido registrou recall@5 de 0,8125 e MRR de 0,54375, mas ainda teve 3 misses entre as 16 consultas.",
+      "sourceIds": [
+        "union-eval",
+        "evaluation-scope"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "Neste experimento, obter zero nas três verificações de chunks não bastou para declarar a recuperação pronta: a união das buscas ainda registrou recall@5 de 0,8125 e 3 misses no top 5.",
+      "sourceIds": [
+        "chunk-audit",
+        "union-eval",
+        "evaluation-scope"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Enriquecimento e descritor nas métricas observadas",
+      "sourceIds": [
+        "retrieval-eval",
+        "enriched-eval",
+        "descriptor-eval"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O enriquecimento testado manteve as métricas de recall@5 e MRR da avaliação base e apresentou medianas de latência maiores no ambiente observado: 403,67 ms no modo semântico e 616,04 ms no híbrido, ante 345,34 ms e 458,87 ms na avaliação base.",
+      "sourceIds": [
+        "retrieval-eval",
+        "enriched-eval"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O descritor testado registrou recall@5 de 0,75 e MRR de 0,5021, sem melhora agregada sobre a busca híbrida base nessas duas métricas. Sua latência mediana observada foi de 709,19 ms.",
+      "sourceIds": [
+        "retrieval-eval",
+        "descriptor-eval"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Escopo das conclusões",
+      "sourceIds": [
+        "evaluation-scope",
+        "sanitization-scope"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Estes resultados se restringem ao corpus, à coleção, às configurações e ao ambiente deste experimento. Recall@5 registra a presença do resultado esperado no top 5, enquanto MRR considera sua posição; isoladamente, essas métricas não avaliam qualidade de resposta, utilidade ao usuário ou prontidão operacional.",
+      "sourceIds": [
+        "evaluation-scope"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "As latências relatadas são observações deste ambiente, e não um benchmark controlado entre infraestruturas.",
+      "sourceIds": [
+        "retrieval-eval",
+        "enriched-eval",
+        "descriptor-eval",
+        "evaluation-scope"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O pacote editorial contém somente métricas agregadas e sanitizadas; consultas, documentos, respostas, identificadores internos e resultados individuais não foram incluídos.",
+      "sourceIds": [
+        "sanitization-scope"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "build-stats",
+      "title": "Estatísticas agregadas da preparação do corpus"
+    },
+    {
+      "id": "chunk-audit",
+      "title": "Auditoria agregada de chunks do corpus"
+    },
+    {
+      "id": "retrieval-eval",
+      "title": "Resumo agregado da avaliação base de retrieval"
+    },
+    {
+      "id": "union-eval",
+      "title": "Resumo agregado da união semântica e híbrida"
+    },
+    {
+      "id": "enriched-eval",
+      "title": "Resumo agregado da avaliação com enriquecimento"
+    },
+    {
+      "id": "descriptor-eval",
+      "title": "Resumo agregado da avaliação com descritor"
+    },
+    {
+      "id": "evaluation-scope",
+      "title": "Registro metodológico e de escopo da avaliação"
+    },
+    {
+      "id": "sanitization-scope",
+      "title": "Registro do escopo de sanitização"
+    }
+  ],
+  "limitations": [
+    "A avaliação contém somente 16 consultas e não sustenta generalizações universais sobre sistemas RAG.",
+    "Os resultados descrevem um corpus, uma coleção, configurações e um ambiente específicos.",
+    "Recall@5 e MRR medem esta tarefa de recuperação; não medem sozinhos qualidade de resposta, utilidade ao usuário ou prontidão operacional.",
+    "Latências são observações deste ambiente e não um benchmark controlado entre infraestruturas.",
+    "O pacote editorial inclui somente métricas agregadas e sanitizadas; consultas, documentos, respostas, IDs internos e resultados individuais não foram incluídos."
+  ],
+  "publishedAt": "2026-07-15",
+  "updatedAt": "2026-07-15"
+}
