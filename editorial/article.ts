@@ -228,6 +228,22 @@ export function validateInstagramPack(pack: unknown, article: Article): string[]
     const values = block.type === "list" ? block.items : [block.text];
     return values.map((value) => ({ value: normalize(value), sourceIds: new Set(block.sourceIds) }));
   });
+  const supportedCopy = [
+    article.title,
+    article.metaDescription,
+    article.excerpt,
+    ...article.limitations,
+    ...supported.map((entry) => entry.value),
+  ].map(normalize);
+  for (const field of ["hook", "caption"] as const) {
+    if (text(pack[field]) && !pack[field]
+      .split(/[.!?\n]+/)
+      .map(normalize)
+      .filter(Boolean)
+      .every((part) => supportedCopy.some((allowed) => allowed.includes(part)))) {
+      errors.push(`${field} introduces text absent from the article`);
+    }
+  }
   if (!Array.isArray(pack.slides) || pack.slides.length === 0) errors.push("slides are required");
   else for (const slide of pack.slides) {
     if (!record(slide) || !onlyKeys(slide, ["title", "body", "sourceIds", "altText"]) || !text(slide.title) || !text(slide.body) || !text(slide.altText) || !Array.isArray(slide.sourceIds)) { errors.push("slide is invalid"); continue; }

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "editorial": "node --experimental-strip-types scripts/editorial.ts",
     "test": "NODE_ENV=test vitest run",
     "test:watch": "NODE_ENV=test vitest"
   },
