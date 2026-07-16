@@ -25,7 +25,7 @@ const BLOCK_SCHEMA = {
       additionalProperties: false,
       required: ["type", "text", "sourceIds"],
       properties: {
-        type: { enum: ["heading", "paragraph", "callout"] },
+        type: { type: "string", enum: ["heading", "paragraph", "callout"] },
         text: { type: "string" },
         sourceIds: { type: "array", items: { type: "string" } },
       },
@@ -35,7 +35,7 @@ const BLOCK_SCHEMA = {
       additionalProperties: false,
       required: ["type", "items", "sourceIds"],
       properties: {
-        type: { const: "list" },
+        type: { type: "string", const: "list" },
         items: { type: "array", minItems: 1, items: { type: "string" } },
         sourceIds: { type: "array", items: { type: "string" } },
       },
@@ -61,7 +61,7 @@ const AUDIT_SCHEMA = {
   required: ["pass", "severity", "issues"],
   properties: {
     pass: { type: "boolean" },
-    severity: { enum: ["none", "low", "medium", "high"] },
+    severity: { type: "string", enum: ["none", "low", "medium", "high"] },
     issues: { type: "array", items: { type: "string" } },
   },
 } as const;
@@ -131,6 +131,19 @@ type ResponsesPayload = {
   usage?: { input_tokens?: unknown; output_tokens?: unknown };
   output?: unknown;
 };
+
+async function apiError(response: Response, stage: GenerationStage): Promise<Error> {
+  let detail = "";
+  try {
+    const payload = await response.json() as unknown;
+    if (object(payload) && object(payload.error) && typeof payload.error.message === "string") {
+      detail = `: ${payload.error.message.replace(/\s+/g, " ").slice(0, 500)}`;
+    }
+  } catch {
+    // The status still identifies the failure when the API body is not JSON.
+  }
+  return new Error(`OpenAI ${stage} request failed with status ${response.status}${detail}`);
+}
 
 function object(value: unknown): value is JsonObject {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -325,7 +338,7 @@ async function callOpenAI(
     if (isTimeout(error, signal)) throw new Error(`OpenAI ${stage} request timed out`);
     throw new Error(`OpenAI ${stage} request failed`);
   }
-  if (!response.ok) throw new Error(`OpenAI ${stage} request failed with status ${response.status}`);
+  if (!response.ok) throw await apiError(response, stage);
 
   let payload: ResponsesPayload;
   try {
@@ -423,7 +436,10 @@ export async function generateArticle(
     options,
     runs,
   ));
-  if (!passed(finalAudit)) throw new Error("Final factual audit rejected the draft");
+  if (!passed(finalAudit)) {
+    const reasons = finalAudit.issues.length ? finalAudit.issues.join("; ") : `severity:${finalAudit.severity}`;
+    throw new Error(`Final factual audit rejected the draft: ${reasons}`);
+  }
   return { article, runs };
 }
 

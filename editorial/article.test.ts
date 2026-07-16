@@ -213,7 +213,8 @@ describe("editorial AI pipeline", () => {
     expect(bodies.every((body) => body.store === false)).toBe(true);
     expect(bodies.every((body) => {
       const format = (body.text as { format: Record<string, unknown> }).format;
-      return format.type === "json_schema" && format.strict === true && objectHasStrictSchema(format.schema);
+      return format.type === "json_schema" && format.strict === true &&
+        objectHasStrictSchema(format.schema) && enumsHaveTypes(format.schema);
     })).toBe(true);
     expect(bodies[0]?.model).toBe(process.env.OPENAI_MODEL ?? "gpt-5.6-terra");
     expect(JSON.parse(String(bodies[0]?.input))).toEqual(pack);
@@ -243,13 +244,21 @@ describe("editorial AI pipeline", () => {
     ]);
 
     await expect(generateArticle(evidence(), { apiKey: "test-key", fetcher })).rejects.toThrow(
-      /final factual audit rejected/i,
+      /final factual audit rejected.*still unsupported/i,
     );
     expect(bodies).toHaveLength(4);
     expect(bodies.filter((body) => JSON.stringify(body.text).includes("correction"))).toHaveLength(1);
   });
 
   it("fails explicitly on refusals, incomplete responses, timeouts, and invalid JSON", async () => {
+    const badRequest = Response.json({
+      error: { message: "Invalid schema for response_format 'evidence_article_draft'." },
+    }, { status: 400 });
+    await expect(generateArticle(evidence(), {
+      apiKey: "test-key",
+      fetcher: queuedFetch([badRequest]).fetcher,
+    })).rejects.toThrow(/status 400.*invalid schema/i);
+
     const refusal = Response.json({
       id: "resp-refusal",
       status: "completed",
@@ -485,4 +494,12 @@ describe("Instagram generation", () => {
 function objectHasStrictSchema(value: unknown): boolean {
   return typeof value === "object" && value !== null &&
     (value as Record<string, unknown>).additionalProperties === false;
+}
+
+function enumsHaveTypes(value: unknown): boolean {
+  if (Array.isArray(value)) return value.every(enumsHaveTypes);
+  if (typeof value !== "object" || value === null) return true;
+  const schema = value as Record<string, unknown>;
+  if (("enum" in schema || "const" in schema) && !("type" in schema)) return false;
+  return Object.values(schema).every(enumsHaveTypes);
 }
