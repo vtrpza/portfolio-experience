@@ -1,0 +1,178 @@
+{
+  "slug": "no-hermes-agent-estado-critico-vive-fora-da-conversa",
+  "title": "No Hermes Agent, estado crítico vive fora da conversa",
+  "metaDescription": "Análise do Hermes Agent, mantido pela NousResearch, sobre identidade de sessão, persistência, reset e retomada fora do texto enviado ao modelo.",
+  "excerpt": "No snapshot analisado do Hermes Agent, mantido pela NousResearch, transcrição, identidade de sessão e decisão de retomada não dependem apenas do contexto reenviado ao modelo.",
+  "kind": "analysis",
+  "cluster": "ia-aplicada",
+  "maturity": "upstream-analysis",
+  "ownership": "third-party-analysis",
+  "aiDisclosure": "ai-drafted-human-approved",
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Uma análise do upstream da NousResearch",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Esta análise examina o snapshot 3f2a389 do Hermes Agent, projeto mantido pela NousResearch. Nesse snapshot, uma sessão representa uma conversa contínua, e seu ciclo inclui persistência, reset, sobrevivência a reinícios e uma fila para mensagens concorrentes.",
+      "sourceIds": [
+        "upstream-lifecycle"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O aspecto central não é apenas onde a transcrição fica armazenada. O desenho também mantém fora do texto da conversa as informações usadas para identificar uma sessão, roteá-la, decidir se ela deve ser reiniciada e coordenar sua retomada depois de uma interrupção.",
+      "sourceIds": [
+        "upstream-lifecycle",
+        "upstream-store",
+        "upstream-recovery"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Identidade e roteamento não são texto de conversa",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Cada SessionEntry associa uma chave determinística de roteamento a um session ID. A entrada persiste também timestamps, metadados, informações de roteamento e flags de transição. Esses dados operacionais existem separadamente do conteúdo textual que compõe a conversa.",
+      "sourceIds": [
+        "upstream-lifecycle",
+        "upstream-store"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "No SessionStore do snapshot, o SQLite funciona como fonte canônica para metadados e transcrições. O arquivo JSON permanece como índice espelhado ou legado recuperável, em vez de ser a única autoridade para reconstruir o estado.",
+      "sourceIds": [
+        "upstream-store"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "O contexto textual explica o que foi dito. A SessionEntry e o store persistente registram qual sessão é aquela e o que o sistema deve fazer com ela.",
+      "sourceIds": [
+        "upstream-lifecycle",
+        "upstream-store"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Reset e retomada são transições diferentes",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "O snapshot diferencia suspended de resume pending. Uma sessão marcada como suspended força a criação de uma nova sessão no próximo acesso. Já resume pending preserva o session ID até que a retomada seja concluída com sucesso.",
+      "sourceIds": [
+        "upstream-lifecycle",
+        "upstream-recovery"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Na recuperação documentada, uma interrupção recente pode marcar a sessão para retomada. No próximo acesso, o mesmo session ID é preservado e a transcrição existente é carregada. A decisão não precisa ser inferida apenas pelo conteúdo de uma nova mensagem.",
+      "sourceIds": [
+        "upstream-recovery"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Os testes upstream verificam a recuperação pelo banco",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Um teste do upstream remove sessions.json e verifica que o store recuperado mantém o mesmo session ID e a mensagem anterior a partir do banco. O teste mostra que apagar o índice JSON não elimina a identidade nem a transcrição persistidas no SQLite.",
+      "sourceIds": [
+        "upstream-tests",
+        "upstream-store"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Outro teste remove o índice JSON, reinicia o store e verifica que o estado da SessionEntry é reidratado somente pelo banco. Juntos, esses cenários cobrem tanto conteúdo anterior quanto estado operacional da entrada de sessão.",
+      "sourceIds": [
+        "upstream-tests"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "Os testes citados pertencem ao Hermes Agent da NousResearch. Eles foram lidos no snapshot analisado, mas não foram reexecutados nesta auditoria.",
+      "sourceIds": [
+        "upstream-tests"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "O que esse desenho permite concluir",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Neste upstream, histórico textual, identidade de sessão e decisão de retomada têm autoridades persistentes próprias. O sistema não depende apenas de reenviar ao modelo uma sequência de mensagens para saber qual sessão continuar ou se o próximo acesso deve começar de novo.",
+      "sourceIds": [
+        "upstream-store",
+        "upstream-recovery",
+        "upstream-tests"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A conclusão é limitada ao snapshot analisado. O desenho do Hermes Agent oferece um exemplo concreto de estado operacional fora da conversa, mas esta análise não o compara com outras arquiteturas nem transforma sua escolha em regra universal para todo sistema de agentes.",
+      "sourceIds": [
+        "upstream-lifecycle",
+        "upstream-store",
+        "upstream-recovery",
+        "upstream-tests"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Limites desta leitura",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "A documentação de ciclo de sessões consultada está datada de 2026-06-16 e contém contagens de linhas defasadas. Por isso, os detalhes desta análise seguem o código e os testes do snapshot 3f2a389 quando há diferença de precisão.",
+      "sourceIds": [
+        "upstream-lifecycle",
+        "upstream-store",
+        "upstream-tests"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "upstream-lifecycle",
+      "title": "NousResearch Hermes Agent — ciclo de sessões",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/3f2a389c7e1f1729cad91ae63c26fb08c7753c74/docs/session-lifecycle.md"
+    },
+    {
+      "id": "upstream-store",
+      "title": "NousResearch Hermes Agent — SessionStore",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/3f2a389c7e1f1729cad91ae63c26fb08c7753c74/gateway/session.py"
+    },
+    {
+      "id": "upstream-recovery",
+      "title": "NousResearch Hermes Agent — retomada após interrupção",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/3f2a389c7e1f1729cad91ae63c26fb08c7753c74/gateway/session.py"
+    },
+    {
+      "id": "upstream-tests",
+      "title": "NousResearch Hermes Agent — testes de recuperação",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/3f2a389c7e1f1729cad91ae63c26fb08c7753c74/tests/gateway/test_session.py"
+    }
+  ],
+  "limitations": [
+    "Esta é uma análise estática do upstream NousResearch Hermes Agent no snapshot 3f2a389 e não uma implementação criada pelo autor do artigo.",
+    "Os testes citados pertencem ao upstream e não foram reexecutados nesta auditoria.",
+    "A documentação de ciclo de sessões está datada de 2026-06-16 e apresenta contagens de linhas defasadas; código e testes do snapshot prevalecem.",
+    "A análise não compara o Hermes Agent com outras arquiteturas de agentes e não sustenta uma regra universal para todo sistema.",
+    "Persistir estado fora da conversa não elimina a necessidade de controle de acesso, retenção, consistência e proteção de dados."
+  ],
+  "publishedAt": "2026-07-16",
+  "updatedAt": "2026-07-16"
+}

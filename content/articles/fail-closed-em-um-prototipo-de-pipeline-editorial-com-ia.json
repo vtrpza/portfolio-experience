@@ -1,0 +1,170 @@
+{
+  "slug": "fail-closed-em-um-prototipo-de-pipeline-editorial-com-ia",
+  "title": "Fail-closed em um protótipo de pipeline editorial com IA",
+  "metaDescription": "Análise anonimizada de um protótipo editorial em que validação, fontes, auditoria e estados explícitos interrompem publicação insegura.",
+  "excerpt": "Neste protótipo, a saída do modelo só avança quando estrutura, fontes, auditoria, duplicidade e transições de estado satisfazem gates explícitos.",
+  "kind": "build-log",
+  "cluster": "ia-aplicada",
+  "maturity": "prototype",
+  "ownership": "original",
+  "aiDisclosure": "ai-drafted-human-approved",
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Fail-closed como regra do protótipo",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "O protótipo editorial anonimizado não trata a resposta do modelo como um artigo publicável por padrão. O texto só continua pelo workflow depois de atravessar validação determinística, verificação de fontes, auditoria e controles de estado.",
+      "sourceIds": [
+        "deterministic-gates",
+        "source-verification",
+        "audit-contract",
+        "workflow-fail-closed"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Primeiro, o que pode ser verificado sem interpretação",
+      "sourceIds": []
+    },
+    {
+      "type": "list",
+      "items": [
+        "A estrutura precisa respeitar os delimitadores esperados.",
+        "O artigo precisa trazer pelo menos duas fontes com IDs únicos.",
+        "Cada referência deve resolver para uma fonte conhecida.",
+        "Blocos substantivos e afirmações numéricas precisam citar fontes."
+      ],
+      "sourceIds": [
+        "deterministic-gates"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O mesmo gate rejeita a linguagem promocional definida pela política. Também recusa fontes que não usem HTTPS ou que estejam fora da allowlist configurada para o fluxo.",
+      "sourceIds": [
+        "deterministic-gates"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Uma URL aceita continua sob verificação",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "A verificação não segue redirects automaticamente. Cada salto volta a ser avaliado contra HTTPS e a allowlist; uma fonte indisponível, um salto para fora da lista ou redirects em excesso interrompem a geração.",
+      "sourceIds": [
+        "source-verification",
+        "content-tests"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A geração também exige que uma busca web tenha sido concluída e que as URLs citadas apareçam entre as fontes devolvidas por essa busca. Esse vínculo registra a proveniência da URL, mas não prova sozinho que cada frase do artigo seja implicada pela fonte.",
+      "sourceIds": [
+        "grounded-generation"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Correção não encerra a auditoria",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "O artigo só retorna quando a auditoria informa pass true, severity none e nenhuma issue. Se houver uma correção, o texto passa novamente pela validação determinística, pela disponibilidade das fontes e por uma auditoria final.",
+      "sourceIds": [
+        "audit-contract"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "No workflow analisado, uma rejeição editorial leva a pauta para rejected e uma falha operacional leva para held. Ambos os caminhos terminam antes da criação ou publicação do post; duplicidade próxima e conflito de rascunho também resultam em rejected.",
+      "sourceIds": [
+        "workflow-fail-closed"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O limite semanal é reivindicado por um trigger no banco. Se o teto já foi alcançado, a transação aborta e o workflow mantém a pauta em held, em vez de conservar o rascunho como publicado além do contrato.",
+      "sourceIds": [
+        "atomic-publication"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Quando uma chamada externa pode ter ocorrido sem confirmação local, o claim remoto muda para uncertain. Nesse estado, o protótipo exige reconciliação manual, pois repetir a chamada sem confirmação pode duplicar o efeito remoto.",
+      "sourceIds": [
+        "uncertain-reconciliation"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Na execução registrada em 2026-07-16, os três arquivos de teste do projeto passaram sem falhas. A suíte cobre gates editoriais específicos, mas ainda não cobre integralmente o workflow de ponta a ponta nem todos os caminhos de retry e auditoria final.",
+      "sourceIds": [
+        "test-run",
+        "content-tests"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "A conclusão está limitada a este protótipo anonimizado: os gates observados interrompem o avanço quando estrutura, origem de fonte, auditoria, duplicidade ou estado operacional não satisfazem o contrato. Isso ainda não prova operação contínua em produção nem substitui auditoria factual sobre o conteúdo de cada afirmação.",
+      "sourceIds": [
+        "deterministic-gates",
+        "grounded-generation",
+        "audit-contract",
+        "workflow-fail-closed"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "deterministic-gates",
+      "title": "Validador determinístico anonimizado"
+    },
+    {
+      "id": "source-verification",
+      "title": "Verificação de URLs oficiais"
+    },
+    {
+      "id": "grounded-generation",
+      "title": "Contrato de busca e citação"
+    },
+    {
+      "id": "audit-contract",
+      "title": "Contrato de auditoria e correção"
+    },
+    {
+      "id": "workflow-fail-closed",
+      "title": "Transições fail-closed do workflow"
+    },
+    {
+      "id": "atomic-publication",
+      "title": "Gate transacional de publicação"
+    },
+    {
+      "id": "uncertain-reconciliation",
+      "title": "Reconciliação de efeito remoto incerto"
+    },
+    {
+      "id": "content-tests",
+      "title": "Testes dos gates editoriais"
+    },
+    {
+      "id": "test-run",
+      "title": "Execução atual da suíte anonimizada"
+    }
+  ],
+  "limitations": [
+    "O material descreve um protótipo ainda condicionado a calibração e não prova operação contínua em produção.",
+    "A suíte atual não cobre integralmente o Workflow de ponta a ponta nem todos os caminhos de retry e auditoria final.",
+    "Alcançabilidade, allowlist e presença da URL na busca não provam sozinhas que toda afirmação é implicada pela fonte; a auditoria factual continua necessária.",
+    "O filtro de linguagem promocional analisado cobre o corpo dos blocos e não demonstra cobertura equivalente de todos os campos editoriais.",
+    "Cliente, domínio, fornecedores, configuração, quotas, pautas e identificadores operacionais foram removidos deste pacote."
+  ],
+  "publishedAt": "2026-07-16",
+  "updatedAt": "2026-07-16"
+}

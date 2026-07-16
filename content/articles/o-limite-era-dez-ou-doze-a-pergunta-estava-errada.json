@@ -1,0 +1,180 @@
+{
+  "slug": "o-limite-era-dez-ou-doze-a-pergunta-estava-errada",
+  "title": "O limite era dez ou doze? A pergunta estava errada",
+  "metaDescription": "Um caso anonimizado sobre um helper compartilhado, a diferença entre quantidade observada e limite configurado e a separação entre seleção e apresentação.",
+  "excerpt": "Doze itens apareceram na regressão, mas doze nunca foi o novo limite. O defeito estava em um helper compartilhado que misturava seleção de itens com a política de quantidade de um consumidor específico.",
+  "kind": "case-study",
+  "cluster": "engenharia-de-produto",
+  "maturity": "verified-experiment",
+  "ownership": "original",
+  "aiDisclosure": "ai-drafted-human-approved",
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "A pergunta que os números escondiam",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "No estado histórico auditado, um helper compartilhado atendia a dois consumidores. Um deles era um fluxo direto; o outro possuía uma interface com dez posições. Mesmo assim, o helper aplicava o teto de dez itens aos dois caminhos.",
+      "sourceIds": [
+        "historical-defect"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Depois da correção, uma regressão entregou doze itens no fluxo direto e dez no consumidor limitado. A leitura apressada seria trocar uma constante por outra e concluir que o limite correto era doze. O teste mostrava algo diferente: havia doze itens elegíveis no fixture, e todos chegaram ao fluxo que não deveria ter aquele teto.",
+      "sourceIds": [
+        "historical-fix",
+        "historical-regression"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "Doze foi uma quantidade observada no fixture histórico. Não era um limite configurado, uma nova regra de produto ou uma meta.",
+      "sourceIds": [
+        "historical-regression"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "O acoplamento era o defeito",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "A função reutilizada tinha duas responsabilidades misturadas. Ela decidia quais itens eram elegíveis e, ao mesmo tempo, impunha a quantidade que cabia na apresentação de um consumidor específico. Ao reutilizar essa função, o fluxo direto herdava uma política que não fazia parte de seu contrato.",
+      "sourceIds": [
+        "historical-defect",
+        "historical-fix"
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        "O fluxo direto precisava receber os itens elegíveis sem o teto pertencente ao outro consumidor.",
+        "O consumidor com dez posições precisava continuar respeitando seu próprio contrato de apresentação.",
+        "A seleção compartilhada não precisava conhecer a capacidade visual desse consumidor."
+      ],
+      "sourceIds": [
+        "historical-defect",
+        "historical-fix"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "A correção separou seleção de apresentação",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "A correção histórica retirou o corte do fluxo direto e preservou as dez posições onde esse contrato realmente existia. Assim, o helper deixou de transmitir ao primeiro consumidor a restrição de quantidade do segundo.",
+      "sourceIds": [
+        "historical-fix"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A regressão usou doze itens elegíveis. O resultado esperado foi justamente assimétrico: doze chegaram ao fluxo direto, enquanto dez preencheram o consumidor limitado. O valor observado provava a remoção do teto indevido naquele cenário; não criava um novo teto.",
+      "sourceIds": [
+        "historical-regression"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "A implementação atual confirma a separação",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Na versão atual auditada, o helper do fluxo direto apenas remove itens sem mídia e devolve todos os elegíveis. Esse caminho não contém slice nem teto de quantidade.",
+      "sourceIds": [
+        "current-direct-flow"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O consumidor de catálogo também evoluiu. Seu contrato atual materializa até vinte posições e aplica esse máximo explicitamente no próprio consumidor, separado do fluxo direto. A implementação atual, portanto, não deve ser descrita como se ainda mantivesse o contrato histórico de dez posições.",
+      "sourceIds": [
+        "current-catalog-contract"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A regressão atual passou com vinte itens observados no fluxo direto e vinte posições preenchidas no catálogo de teste. Esse resultado verifica o comportamento atual examinado, sem transformar vinte em uma regra para o fluxo direto.",
+      "sourceIds": [
+        "current-regression",
+        "current-direct-flow",
+        "current-catalog-contract"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "O que este caso sustenta",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Neste caso, perguntar se o limite era dez ou doze desviava a atenção da causa. Dez era o contrato histórico de um consumidor; doze era apenas a oferta elegível do teste. O problema real era a política de apresentação ter sido colocada dentro de uma seleção compartilhada.",
+      "sourceIds": [
+        "historical-defect",
+        "historical-regression",
+        "historical-fix"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A evidência também é específica: ela demonstra esse acoplamento e sua correção, não uma regra universal segundo a qual todo helper compartilhado precisa ser dividido. O ponto verificável é mais estreito: uma restrição pertencente a um consumidor não deveria limitar outro caminho apenas porque ambos reutilizam a mesma função.",
+      "sourceIds": [
+        "historical-defect",
+        "historical-fix",
+        "current-direct-flow",
+        "current-catalog-contract"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "Quando uma regressão muda de dez para doze itens observados, a pergunta útil não é automaticamente “qual constante venceu?”. Primeiro é preciso distinguir contrato, dados disponíveis no teste e local onde a política é aplicada.",
+      "sourceIds": [
+        "historical-defect",
+        "historical-fix",
+        "historical-regression"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "historical-defect",
+      "title": "Registro privado sanitizado do defeito histórico"
+    },
+    {
+      "id": "historical-fix",
+      "title": "Registro privado sanitizado da correção"
+    },
+    {
+      "id": "historical-regression",
+      "title": "Resultado sanitizado da regressão histórica"
+    },
+    {
+      "id": "current-direct-flow",
+      "title": "Helper atual anonimizado do fluxo direto"
+    },
+    {
+      "id": "current-catalog-contract",
+      "title": "Contrato atual anonimizado do catálogo"
+    },
+    {
+      "id": "current-regression",
+      "title": "Execução atual da regressão anonimizada"
+    }
+  ],
+  "limitations": [
+    "O caso foi anonimizado; cliente, fornecedores, URLs, IDs, preços, categorias, payloads e detalhes de produção não foram incluídos.",
+    "A evidência histórica permanece em registro privado e não possui URL pública.",
+    "Doze era a quantidade elegível no fixture histórico, não um limite configurado ou uma meta de produto.",
+    "A implementação atual evoluiu para vinte posições no consumidor e não deve ser descrita como se ainda tivesse o contrato histórico de dez.",
+    "Este caso mostra um acoplamento específico e não estabelece que todo helper compartilhado deva ser dividido."
+  ],
+  "publishedAt": "2026-07-16",
+  "updatedAt": "2026-07-16"
+}

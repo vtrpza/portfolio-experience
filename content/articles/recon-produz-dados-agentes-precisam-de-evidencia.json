@@ -1,0 +1,148 @@
+{
+  "slug": "recon-produz-dados-agentes-precisam-de-evidencia",
+  "title": "Recon produz dados; agentes precisam de evidência",
+  "metaDescription": "Análise do discovery do reconctx sobre handoffs compactos que preservam proveniência, estado semântico, falhas e limites para agentes.",
+  "excerpt": "No discovery do reconctx, o objetivo não é apenas acumular saídas de ferramentas, mas entregar um handoff em que cada afirmação continue ligada à evidência que a sustenta.",
+  "kind": "analysis",
+  "cluster": "seguranca-e-evidencia",
+  "maturity": "research",
+  "ownership": "original",
+  "aiDisclosure": "ai-drafted-human-approved",
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "O problema não termina quando o recon acaba",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Neste discovery, o reconctx parte de uma distinção operacional: uma coleção de saídas pode registrar o que as ferramentas devolveram, mas o handoff precisa manter cada fato ligado à sua origem e ao contexto em que foi produzido. O trabalho continua classificado como pesquisa pré-implementação, sem declarar um runner de produção pronto.",
+      "sourceIds": [
+        "evidence-contract",
+        "discovery-status"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O contrato associa todo fato normalizado relevante à ferramenta e à versão usadas, à execução, ao timestamp, ao artefato bruto, à localização, à decisão de escopo e ao estado semântico. O identificador do contexto de autenticação permanece opaco e não carrega material de autenticação.",
+      "sourceIds": [
+        "evidence-contract"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Proveniência antes de síntese",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "A ordem definida para a normalização valida e preserva o localizador do artefato bruto antes de avaliar escopo e criar registros de Evidence e Observation. Quando há lacunas, elas são emitidas de forma explícita em vez de desaparecerem durante a compactação.",
+      "sourceIds": [
+        "normalization-contract"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "No contrato analisado, historical, observed, inferred, bruteforced e user supplied são estados semanticamente distintos. A compactação não autoriza fundi-los como se descrevessem a mesma qualidade de evidência.",
+      "sourceIds": [
+        "normalization-contract"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Falha também precisa sobreviver ao handoff",
+      "sourceIds": []
+    },
+    {
+      "type": "list",
+      "items": [
+        "Execução parcial preserva a evidência válida e declara as lacunas.",
+        "Formato não suportado, timeout, interrupção e sucesso com zero resultados mantêm estados distintos.",
+        "Sem observações válidas, a execução não emite um handoff de sucesso enganoso."
+      ],
+      "sourceIds": [
+        "failure-contract"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Antes da entrega, o gate verifica schema, referências, localizadores, hashes, checksums, caminhos, material sensível e declaração de lacunas. O compilador também proíbe a promoção automática de dados de recon para finding ou severidade.",
+      "sourceIds": [
+        "integrity-contract"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "O que o fixture sanitizado mostrou",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "No benchmark registrado, o handoff compacto respondeu dez perguntas comuns sem drilldown, citou quinze Evidence IDs existentes e não confundiu histórico com observação atual nem promoveu uma vulnerabilidade a partir do recon.",
+      "sourceIds": [
+        "handoff-benchmark"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Nesse mesmo registro, a condição compacta usou 7.064 bytes de fonte e duas chamadas, enquanto a condição raw usou 9.332 bytes únicos e oito chamadas. Os tempos registrados incluem overhead de agente e ferramentas, por isso são direcionais e não constituem um benchmark controlado de CPU.",
+      "sourceIds": [
+        "handoff-benchmark"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A checagem executada em 2026-07-16 validou os checksums dos 29 arquivos listados no exemplo sanitizado. Isso confirma a integridade dos arquivos cobertos pela lista, não a correção universal do produto.",
+      "sourceIds": [
+        "handoff-integrity"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "A conclusão vale para este discovery e para o fixture registrado: um handoff compacto preservou respostas, referências e distinções temporais usando menos bytes de fonte e menos chamadas. O resultado não demonstra o mesmo comportamento em recon externo, em outros agentes ou em um runner de produção, que ainda não é declarado como existente.",
+      "sourceIds": [
+        "handoff-benchmark",
+        "discovery-status"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "evidence-contract",
+      "title": "Contrato de evidência do reconctx"
+    },
+    {
+      "id": "normalization-contract",
+      "title": "Contrato de normalização e proveniência"
+    },
+    {
+      "id": "failure-contract",
+      "title": "Matriz de falhas do pipeline"
+    },
+    {
+      "id": "integrity-contract",
+      "title": "Gate de integridade do handoff"
+    },
+    {
+      "id": "handoff-benchmark",
+      "title": "Benchmark registrado do handoff compacto"
+    },
+    {
+      "id": "handoff-integrity",
+      "title": "Verificação atual do exemplo sanitizado"
+    },
+    {
+      "id": "discovery-status",
+      "title": "Estado declarado do discovery"
+    }
+  ],
+  "limitations": [
+    "O benchmark usa um fixture sanitizado e não prova o mesmo resultado em recon externo ou em outros agentes.",
+    "O identificador do modelo não estava disponível no registro do benchmark.",
+    "As medições de runtime incluem overhead de agente e ferramentas e não constituem benchmark controlado de CPU.",
+    "Alguns diagnósticos do handoff ainda não possuem Evidence ID próprio.",
+    "O projeto permanece em discovery pré-implementação; este artigo não descreve um runner de produção pronto."
+  ],
+  "publishedAt": "2026-07-16",
+  "updatedAt": "2026-07-16"
+}
