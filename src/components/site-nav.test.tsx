@@ -14,6 +14,10 @@ describe("SiteNav", () => {
       "href",
       "/playground",
     );
+    expect(screen.getByRole("link", { name: /^artigos$/i })).toHaveAttribute(
+      "href",
+      "/artigos",
+    );
     expect(screen.getByRole("link", { name: /^sobre$/i })).toHaveAttribute(
       "href",
       "/about",

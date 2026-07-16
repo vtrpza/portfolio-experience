@@ -3,6 +3,7 @@ import Link from "next/link";
 const navigation = [
   { href: "/case-studies", label: "Trabalhos" },
   { href: "/playground", label: "Laboratório" },
+  { href: "/artigos", label: "Artigos" },
   { href: "/about", label: "Sobre" },
   { href: "/uses", label: "Ferramentas" },
 ] as const;
