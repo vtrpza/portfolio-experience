@@ -23,6 +23,7 @@ const cases = [
       "Next.js 16, React 19, TypeScript, SQLite/Drizzle, NextAuth, Gmail API, Sentry, PostHog e deploy na Fly.io. Repositório público e versão release candidate.",
     result:
       "Os fluxos centrais estão estáveis: sourcing, acompanhamento ATS, contatos, outreach, billing e instrumentação. O repositório recebeu 5 estrelas no GitHub.",
+    id: "replyflow",
     href: "https://github.com/vtrpza/replyflow",
     linkLabel: "Inspecionar o ReplyFlow",
     tags: ["Produto", "Next.js", "Integrações", "Observabilidade"],
@@ -41,6 +42,7 @@ const cases = [
       "Pipeline local de teste, check e build; arquitetura preparada para Cloudflare Pages/Workers/D1, Turnstile, Pipedrive e rastreamento.",
     result:
       "A entrega separa conteúdo, regras e integrações, preserva revisão humana e deixa o crescimento do canal independente de um CMS pesado.",
+    id: "blog-vr",
     href: "https://github.com/vtrpza/blog-vr",
     linkLabel: "Inspecionar o Blog VR",
     tags: ["Astro", "TypeScript", "SEO", "Cloudflare"],
@@ -59,6 +61,7 @@ const cases = [
       "Projeto Python público sob licença MIT, documentação de arquitetura, limites de corpo, rate limiting e proteções para caminhos e seletores.",
     result:
       "A metodologia torna hipótese, execução e evidência inspecionáveis. Achados só avançam depois de reprodução e avaliação de impacto.",
+    id: "ghostclaw",
     href: "https://github.com/vtrpza/ghost-claw",
     linkLabel: "Inspecionar o GhostClaw",
     tags: ["Python", "AppSec", "Evidência", "Bug bounty autorizado"],
@@ -76,7 +79,7 @@ export default function CaseStudiesPage() {
     >
       <section className="case-list" aria-label="Projetos selecionados">
         {cases.map((item) => (
-          <article className="case-study" key={item.title}>
+          <article className="case-study" id={item.id} key={item.title}>
             <header className="case-heading">
               <span>{item.index} / {item.area}</span>
               <h2>{item.title}</h2>
@@ -114,7 +117,7 @@ export default function CaseStudiesPage() {
         ))}
       </section>
 
-      <section className="evidence-band" aria-labelledby="trajectory-title">
+      <section className="evidence-band" id="trajectory" aria-labelledby="trajectory-title">
         <div>
           <p className="section-code">Trajetória / produção</p>
           <h2 id="trajectory-title">O que sustenta esses recortes.</h2>

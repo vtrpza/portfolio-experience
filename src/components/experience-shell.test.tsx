@@ -7,17 +7,37 @@ describe("ExperienceShell", () => {
     render(<ExperienceShell scene={<div>cena carregada</div>} />);
 
     expect(
-      screen.getByRole("region", { name: /observatório de sistemas/i }),
+      screen.getByRole("region", { name: /um sistema, três camadas/i }),
     ).toBeInTheDocument();
     expect(screen.getByText(/cena carregada/i)).toBeInTheDocument();
-    expect(screen.getByText(/arraste para orbitar/i)).toBeInTheDocument();
+    expect(screen.getByText(/escolha uma camada/i)).toBeInTheDocument();
   });
 
   it("mantém a jornada principal sem canvas", () => {
     render(<ExperienceShell scene={null} />);
 
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /ver trabalhos/i })).toBeInTheDocument();
-    expect(screen.getByText(/4 MVPs em 18 meses/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /ver 3 trabalhos/i })).toBeInTheDocument();
+    expect(screen.getByText(/MVPs em 18 meses/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /ReplyFlow/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /conversar por e-mail/i })).toBeInTheDocument();
+  });
+
+  it("destaca o artigo aprovado mais recente quando disponível", () => {
+    render(
+      <ExperienceShell
+        scene={null}
+        latestArticle={{
+          slug: "artigo-verificado",
+          title: "Artigo verificado",
+          excerpt: "Resumo sustentado por evidências.",
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("link", { name: /artigo verificado/i })).toHaveAttribute(
+      "href",
+      "/artigos/artigo-verificado",
+    );
   });
 });

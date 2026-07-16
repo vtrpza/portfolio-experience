@@ -29,8 +29,9 @@ describe("SiteNav", () => {
   });
 
   it("tem um link acessível para o início", () => {
-    render(<SiteNav />);
+    const { container } = render(<SiteNav />);
 
     expect(screen.getByRole("link", { name: /início/i })).toHaveAttribute("href", "/");
+    expect(container.querySelector(".brand-logo")).toBeInTheDocument();
   });
 });

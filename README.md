@@ -1,39 +1,139 @@
-# Portfólio — Vitor Pouza
+<p align="center">
+  <a href="https://vitorpouza-dev.vhnpouza.workers.dev">
+    <img src="public/logo-vp-transparent.png" width="180" alt="Monograma VP em verde-limão" />
+  </a>
+</p>
 
-Portfólio baseado em evidência para engenharia full-stack, produto e segurança aplicada. A homepage usa um **Observatório de Sistemas** procedural; o conteúdo principal continua semântico e navegável sem WebGL.
+<h1 align="center">Portfolio Experience</h1>
 
-## Conteúdo publicado
+<p align="center">
+  <strong>Produto, plataforma e segurança — do problema à produção.</strong><br />
+  Um portfólio público desenhado como sistema inspecionável: decisões, provas e limites no lugar de adjetivos.
+</p>
 
-- `/` — posicionamento e observatório interativo
-- `/case-studies` — ReplyFlow, Blog VR e pesquisa de segurança
-- `/playground` — experimentos e laboratório
-- `/about` — trajetória e princípios operacionais
-- `/uses` — ferramentas atuais com razões de uso
-- `/workana` — apresentação isolada, sem contatos externos, para impressão em PDF
+<p align="center">
+  <a href="https://github.com/vtrpza/portfolio-experience/actions/workflows/quality.yml"><img alt="Quality" src="https://github.com/vtrpza/portfolio-experience/actions/workflows/quality.yml/badge.svg" /></a>
+  <a href="https://nextjs.org/"><img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-111111?style=flat-square&logo=next.js" /></a>
+  <a href="https://react.dev/"><img alt="React 19" src="https://img.shields.io/badge/React-19-111111?style=flat-square&logo=react" /></a>
+  <a href="https://www.typescriptlang.org/"><img alt="TypeScript strict" src="https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white" /></a>
+  <a href="https://developers.cloudflare.com/workers/"><img alt="Cloudflare Workers" src="https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white" /></a>
+</p>
 
-A pesquisa de tendências e as regras específicas da Workana estão em [`docs/research-2026-07-14.md`](docs/research-2026-07-14.md).
+<p align="center">
+  <a href="https://vitorpouza-dev.vhnpouza.workers.dev"><strong>Explorar o site ↗</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://vitorpouza-dev.vhnpouza.workers.dev/case-studies/">Ver trabalhos</a>
+  &nbsp;·&nbsp;
+  <a href="https://vitorpouza-dev.vhnpouza.workers.dev/artigos/">Ler artigos</a>
+</p>
 
-## Stack
+<p align="center">
+  <a href="https://vitorpouza-dev.vhnpouza.workers.dev">
+    <img src="artifacts/screenshots/home-desktop.png" alt="Página inicial do portfólio de Vitor Pouza" width="100%" />
+  </a>
+</p>
 
-- Next.js App Router + TypeScript strict
-- React Three Fiber / Three.js na melhoria progressiva
-- HTML semântico independente do WebGL
-- fallback visual 2D em telas pequenas
-- `prefers-reduced-motion`, foco visível e navegação por teclado
-- Vitest + Testing Library
+## Não é só uma landing page
 
-Nenhuma dependência nova foi adicionada para a personalização.
+Este repositório reúne o portfólio público de **Vitor Pouza**, engenheiro full-stack com mais de oito anos de experiência. A experiência foi construída para responder quatro perguntas sem depender de discurso promocional:
 
-## Executar
+1. Qual era o problema?
+2. Qual decisão foi tomada?
+3. Que evidência sustenta o trabalho?
+4. Onde termina o alcance da conclusão?
+
+A home transforma essas perguntas em um observatório interativo de três camadas. O restante do site aprofunda projetos, trajetória, experimentos e decisões técnicas com conteúdo semântico, navegável e versionado.
+
+## Um sistema, três camadas
+
+| Camada | Projeto | O que pode ser inspecionado |
+| --- | --- | --- |
+| **01 · Produto** | [ReplyFlow](https://github.com/vtrpza/replyflow) | Descoberta de vagas, pipeline ATS, contatos, e-mail, billing e observabilidade em um produto full-stack. |
+| **02 · Plataforma** | [Blog VR](https://github.com/vtrpza/blog-vr) | Conteúdo como sistema de aquisição, com Astro, TypeScript, MDX e arquitetura preparada para Cloudflare. |
+| **03 · Segurança** | [GhostClaw](https://github.com/vtrpza/ghost-claw) | Pesquisa autorizada organizada por hipótese, estado, reprodução e evidência rastreável. |
+
+O efeito tridimensional é feito com **React + CSS**, sem WebGL, Three.js ou uma dependência gráfica pesada. A interface preserva navegação por teclado, foco visível e `prefers-reduced-motion`.
+
+## Evidência antes de adjetivos
+
+- Estudos de caso separam **contexto, decisão, evidência e resultado**.
+- Métricas públicas entram apenas com fonte e escopo conhecidos.
+- Projetos confidenciais permanecem anonimizados.
+- Artigos exibem maturidade, limitações, referências e proveniência.
+- IA pode ajudar na redação; publicação exige auditoria factual e aprovação humana explícita.
+
+```mermaid
+flowchart LR
+    A["Pacote privado<br/>de evidências"] --> B["Validação +<br/>sanitização"]
+    B --> C["Rascunho<br/>assistido por IA"]
+    C --> D["Auditoria factual<br/>e correção"]
+    D --> E{"Aprovação<br/>humana"}
+    E -->|aprovado| F["JSON público<br/>versionado"]
+    E -->|rejeitado| C
+```
+
+> **A experiência é a fonte. IA é ferramenta de redação.**
+
+O pipeline usa schemas estritos, allowlist de fontes, bloqueio de material sensível e `store: false` nas chamadas à API. A política completa está em [`/politica-editorial/`](https://vitorpouza-dev.vhnpouza.workers.dev/politica-editorial/).
+
+## O que está publicado
+
+| Rota | Conteúdo |
+| --- | --- |
+| `/` | Posicionamento, observatório, evidência profissional e trabalho selecionado. |
+| `/case-studies/` | ReplyFlow, Blog VR, GhostClaw e trajetória profissional. |
+| `/playground/` | Experimentos em segurança, automação, interfaces e IA. |
+| `/artigos/` | Publicações agrupadas por área. |
+| `/artigos/[slug]/` | Texto, fontes, limitações e proveniência. |
+| `/politica-editorial/` | Critérios de evidência, autoria, IA, privacidade e correções. |
+| `/about/` | Trajetória e princípios operacionais. |
+| `/uses/` | Ferramentas atuais e as razões de uso. |
+| `/workana/` | Apresentação isolada e `noindex`, preparada para impressão em PDF. |
+
+## Arquitetura
+
+```mermaid
+flowchart LR
+    UI["React + CSS<br/>interface"] --> NEXT["Next.js 16<br/>App Router"]
+    JSON["Conteúdo JSON<br/>versionado"] --> LOADER["Loader + validação<br/>em build time"]
+    LOADER --> NEXT
+    NEXT --> OUT["Export estático<br/>out/"]
+    OUT --> CF["Cloudflare Workers<br/>Static Assets"]
+```
+
+```text
+src/app/                     páginas, metadata, sitemap e robots
+src/components/              navegação, hero, observatório e layout editorial
+src/lib/articles.ts          carga e validação dos artigos durante o build
+content/articles/            fonte pública e versionada das publicações
+content/social/instagram/    pacotes sociais derivados de artigos aprovados
+editorial/article.ts         contratos e validações editoriais
+scripts/editorial.ts         CLI editorial e integração com a OpenAI
+wrangler.jsonc               publicação de out/ como ativos estáticos
+```
+
+### Stack
+
+- **Runtime:** Node.js 22
+- **Aplicação:** Next.js 16.2, React 19.2 e App Router
+- **Linguagem:** TypeScript 5 em modo `strict`
+- **Interface:** CSS responsivo e Tailwind CSS 4 via PostCSS
+- **Qualidade:** ESLint 9, Vitest 4, Testing Library e jsdom
+- **Entrega:** exportação estática e Wrangler 4 para Cloudflare Workers
+
+## Executar localmente
 
 ```bash
+git clone https://github.com/vtrpza/portfolio-experience.git
+cd portfolio-experience
+nvm use
 npm ci --include=dev
 npm run dev
 ```
 
-Abra <http://localhost:3000>.
+Abra [http://localhost:3000](http://localhost:3000).
 
-## Verificar
+### Verificar tudo
 
 ```bash
 npm run lint
@@ -42,29 +142,58 @@ npm test
 npm run build
 ```
 
-## Gerar o PDF seguro para Workana
+O mesmo conjunto roda em cada push para `main` e em pull requests pelo workflow [`Quality`](.github/workflows/quality.yml).
 
-Com o servidor local ativo:
+## Fluxo editorial
+
+Evidências e rascunhos ficam fora do Git. Apenas artigos aprovados e seus derivados públicos entram em `content/`.
 
 ```bash
-mkdir -p artifacts
-chromium \
-  --headless \
-  --no-sandbox \
-  --disable-dev-shm-usage \
-  --print-to-pdf=artifacts/portfolio-workana-vitor-pouza.pdf \
-  http://127.0.0.1:3000/workana
+# 1. Validar o pacote local de evidências
+npm run editorial -- validate editorial/evidence/exemplo.json
+
+# 2. Carregar a chave sem gravá-la no histórico do shell
+read -rsp "OPENAI_API_KEY: " OPENAI_API_KEY && echo
+export OPENAI_API_KEY
+
+# 3. Gerar e auditar o rascunho
+npm run editorial -- generate editorial/evidence/exemplo.json
+
+# 4. Limpar a chave da sessão
+unset OPENAI_API_KEY
+
+# 5. Aprovar o arquivo revisado
+npm run editorial -- approve editorial/drafts/slug.json
 ```
 
-Antes de anexar, confirme que o PDF não contém e-mail, telefone, GitHub, LinkedIn ou URL externa. A Workana proíbe contato externo antes da contratação.
+O último comando só publica após a confirmação exata `APROVAR <slug>`. Pacotes para Instagram são gerados a partir de um artigo já aprovado:
 
-## Política de conteúdo
-
-- Não inventar clientes, métricas ou depoimentos.
-- Projetos confidenciais permanecem anonimizados.
-- Métricas só entram com fonte e escopo conhecidos.
-- O site público pode usar e-mail e GitHub; a versão Workana não.
+```bash
+npm run editorial -- social content/articles/slug.json
+```
 
 ## Deploy
 
-O projeto é compatível com Vercel e com o `Dockerfile` multi-stage incluído. Configuração de deploy não equivale a uma publicação pública: domínio e credenciais do usuário ainda são necessários.
+```bash
+npx wrangler login
+npx wrangler whoami
+SITE_ENV=production npm run deploy:dry
+SITE_ENV=production npm run deploy
+```
+
+`npm run build` gera `out/`; o Wrangler publica esse diretório como ativos estáticos. `SITE_ENV=production` habilita indexação e sitemap no build publicado.
+
+## Princípios do projeto
+
+- Conteúdo continua útil sem depender da camada visual interativa.
+- Acessibilidade e movimento reduzido fazem parte da implementação, não do checklist final.
+- Cliente, resultado, escala ou depoimento nunca são inventados.
+- Segredos, credenciais, tokens, PII e infraestrutura privada não entram no conteúdo público.
+- Uma conclusão só pode ser tão ampla quanto a evidência que a sustenta.
+
+---
+
+<p align="center">
+  Construído por <a href="https://github.com/vtrpza"><strong>Vitor Pouza</strong></a><br />
+  <sub>Engenharia full-stack · produto · segurança aplicada</sub>
+</p>

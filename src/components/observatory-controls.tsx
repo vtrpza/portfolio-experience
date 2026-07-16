@@ -1,28 +1,50 @@
-export type SystemLayer = "architecture" | "product" | "platform";
+export type SystemLayer = "product" | "platform" | "security";
 
 export const systemLayers: ReadonlyArray<{
   id: SystemLayer;
   index: string;
   label: string;
   detail: string;
+  project: string;
+  summary: string;
+  evidence: string;
+  href: string;
 }> = [
   {
-    id: "architecture",
+    id: "product",
     index: "01",
     label: "Produto",
     detail: "Problema & experiência",
-  },
-  {
-    id: "product",
-    index: "02",
-    label: "Plataforma",
-    detail: "Dados & arquitetura",
+    project: "ReplyFlow",
+    summary:
+      "CRM que reúne descoberta de vagas, pipeline, contatos e comunicação em um único fluxo.",
+    evidence:
+      "Seis fontes de vagas, autenticação, e-mail, pagamentos e monitoramento em uma aplicação.",
+    href: "/case-studies/#replyflow",
   },
   {
     id: "platform",
+    index: "02",
+    label: "Plataforma",
+    detail: "Dados & arquitetura",
+    project: "Blog VR",
+    summary:
+      "Motor editorial rápido e auditável construído com Astro, TypeScript e MDX.",
+    evidence:
+      "Conteúdo, regras e integrações separados; testes e build antes de cada etapa concluída.",
+    href: "/case-studies/#blog-vr",
+  },
+  {
+    id: "security",
     index: "03",
     label: "Segurança",
     detail: "Risco & evidência",
+    project: "GhostClaw",
+    summary:
+      "Laboratório público para pesquisa autorizada com escopo, estado e evidência.",
+    evidence:
+      "Validação por reprodução, estado rastreável e comunicação conservadora do impacto.",
+    href: "/case-studies/#ghostclaw",
   },
 ];
 

@@ -8,18 +8,18 @@ describe("HeroCopy", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: /transformo problemas complexos em produtos confiáveis/i,
+        name: /construo produtos full-stack confiáveis, do problema à produção/i,
       }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/primeiro commit ao deploy/i)).toBeInTheDocument();
+    expect(screen.getByText(/uno produto, arquitetura e segurança/i)).toBeInTheDocument();
   });
 
   it("leva o visitante direto aos trabalhos", () => {
     render(<HeroCopy />);
 
-    expect(screen.getByRole("link", { name: /ver trabalhos/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /ver 3 trabalhos/i })).toHaveAttribute(
       "href",
-      "/case-studies",
+      "#trabalhos",
     );
   });
 });

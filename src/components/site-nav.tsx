@@ -12,9 +12,7 @@ export function SiteNav() {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label="Início">
-        <span className="brand-mark" aria-hidden="true">
-          ∴
-        </span>
+        <span className="brand-logo" aria-hidden="true" />
         <span>VITOR POUZA</span>
       </Link>
 
