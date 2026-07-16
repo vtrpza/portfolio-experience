@@ -455,6 +455,15 @@ describe("Instagram generation", () => {
     expect((bodies[0]?.text as { format: Record<string, unknown> }).format).toMatchObject({
       type: "json_schema",
       strict: true,
+      schema: {
+        properties: {
+          hashtags: {
+            minItems: 1,
+            maxItems: 12,
+            items: { pattern: "^#[A-Za-z0-9_]+$" },
+          },
+        },
+      },
     });
     expect(result.pack).toMatchObject({
       articleSlug: "rag-pronto",

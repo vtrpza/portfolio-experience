@@ -89,7 +89,12 @@ const INSTAGRAM_SCHEMA = {
         },
       },
     },
-    hashtags: { type: "array", items: { type: "string" } },
+    hashtags: {
+      type: "array",
+      minItems: 1,
+      maxItems: 12,
+      items: { type: "string", pattern: "^#[A-Za-z0-9_]+$" },
+    },
   },
 } as const;
 
@@ -535,7 +540,7 @@ export async function generateInstagramPack(
   const result = await callOpenAI(
     "social",
     article,
-    "Crie um carrossel curto em português usando somente frases e sourceIds presentes no artigo. Não adicione métricas, histórias, conclusões ou promessas. Hook, legenda, títulos e corpos devem reutilizar texto do artigo. Retorne apenas o schema.",
+    "Crie um carrossel curto em português usando somente frases e sourceIds presentes no artigo. Não adicione métricas, histórias, conclusões ou promessas. Hook, legenda, títulos e corpos devem reutilizar texto do artigo. Gere de 1 a 12 hashtags, cada uma iniciada por # e contendo somente letras ASCII, números ou _. Retorne apenas o schema.",
     "approved_article_instagram",
     INSTAGRAM_SCHEMA,
     options,
