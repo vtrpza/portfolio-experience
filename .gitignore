@@ -13,6 +13,11 @@
 # testing
 /coverage
 
+# private editorial material
+/editorial/evidence/
+/editorial/drafts/
+/editorial/private/
+
 # next.js
 /.next/
 /out/
@@ -39,3 +44,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/editorial/evidence/
+/editorial/drafts/
+/editorial/private/
