@@ -213,6 +213,7 @@ describe("editorial AI pipeline", () => {
     expect(bodies.every((body) => body.store === false)).toBe(true);
     expect(bodies.every((body) => String(body.instructions).includes("sourceIds"))).toBe(true);
     expect(bodies.every((body) => String(body.instructions).includes("privacy"))).toBe(true);
+    expect(bodies.every((body) => String(body.instructions).includes("verificaç"))).toBe(true);
     expect(bodies.every((body) => {
       const format = (body.text as { format: Record<string, unknown> }).format;
       return format.type === "json_schema" && format.strict === true &&
