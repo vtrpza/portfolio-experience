@@ -16,6 +16,7 @@ const OPENAI_URL = "https://api.openai.com/v1/responses";
 const DEFAULT_MODEL = "gpt-5.6-terra";
 const DEFAULT_TIMEOUT_MS = 180_000;
 const SOURCE_TIMEOUT_MS = 10_000;
+const PUBLICATION_TIME_ZONE = "America/Sao_Paulo";
 const CTA = "Leia o artigo completo no link da bio." as const;
 
 const BLOCK_SCHEMA = {
@@ -183,7 +184,12 @@ function slugify(value: string): string {
 }
 
 function date(options: Pick<GenerationOptions, "now">): string {
-  return (options.now?.() ?? new Date()).toISOString().slice(0, 10);
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: PUBLICATION_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(options.now?.() ?? new Date());
 }
 
 function hostnameAllowed(hostname: string, domains: string[]): boolean {
@@ -394,7 +400,7 @@ export async function generateArticle(
   let article = articleFromDraft(await callOpenAI(
     "draft",
     pack,
-    "Redija em português do Brasil usando somente as evidências fornecidas. Não invente fatos. Cada bloco factual deve citar sourceIds existentes. Retorne apenas os campos redacionais do schema.",
+    "Redija em português do Brasil usando somente as evidências fornecidas. Não invente fatos. Cada frase factual ou inferência deve ser sustentada pelos sourceIds do próprio bloco. Não exponha hashes ou identificadores internos. Retorne apenas os campos redacionais do schema.",
     "evidence_article_draft",
     ARTICLE_DRAFT_SCHEMA,
     options,
@@ -406,7 +412,7 @@ export async function generateArticle(
     const firstAudit = audit(await callOpenAI(
       "audit",
       { evidence: pack, article },
-      "Audite factualidade, autoria, privacidade e suporte de cada afirmação contra a evidência fornecida. Reprove qualquer fato novo ou sem fonte.",
+      "Audite cada frase quanto a factualidade, autoria, privacidade e suporte. Reprove qualquer fato novo e qualquer bloco cujos sourceIds não sustentem todas as suas frases.",
       "evidence_article_audit",
       AUDIT_SCHEMA,
       options,
@@ -419,7 +425,7 @@ export async function generateArticle(
   article = articleFromDraft(await callOpenAI(
     "correction",
     { evidence: pack, article, issues },
-    "Corrija somente os problemas indicados, sem criar fatos, fontes ou conclusões. Retorne apenas os campos redacionais do schema.",
+    "Corrija somente os problemas indicados, sem criar fatos, fontes ou conclusões. Cada frase factual ou inferência deve ser sustentada pelos sourceIds do bloco. Não exponha hashes ou identificadores internos. Retorne apenas os campos redacionais do schema.",
     "evidence_article_correction",
     ARTICLE_DRAFT_SCHEMA,
     options,
@@ -430,7 +436,7 @@ export async function generateArticle(
   const finalAudit = audit(await callOpenAI(
     "final-audit",
     { evidence: pack, article },
-    "Faça a auditoria factual final. Reprove qualquer fato novo, problema de autoria, privacidade ou afirmação sem suporte explícito.",
+    "Faça a auditoria factual final frase por frase. Reprove qualquer fato novo, problema de autoria ou privacidade e qualquer bloco cujos sourceIds não sustentem todas as suas frases.",
     "evidence_article_final_audit",
     AUDIT_SCHEMA,
     options,

@@ -204,13 +204,14 @@ describe("editorial AI pipeline", () => {
     const result = await generateArticle(pack, {
       apiKey: "test-key",
       fetcher,
-      now: () => new Date("2026-07-15T12:00:00Z"),
+      now: () => new Date("2026-07-16T02:00:00Z"),
       onRun: (run) => { runs.push(run); },
       verifyPublicUrls: false,
     });
 
     expect(bodies).toHaveLength(2);
     expect(bodies.every((body) => body.store === false)).toBe(true);
+    expect(bodies.every((body) => String(body.instructions).includes("sourceIds"))).toBe(true);
     expect(bodies.every((body) => {
       const format = (body.text as { format: Record<string, unknown> }).format;
       return format.type === "json_schema" && format.strict === true &&
