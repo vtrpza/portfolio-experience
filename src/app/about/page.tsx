@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Sobre",
   description:
     "Como Vitor Pouza trabalha: produto, arquitetura, entrega e segurança no mesmo sistema.",
+  alternates: { canonical: "/about/" },
 };
 
 const principles = [

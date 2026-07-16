@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+const siteUrl = "https://vitorpouza.dev";
+const isProduction = process.env.SITE_ENV === "production";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -15,6 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Vitor Pouza — Engenharia Full-Stack e Segurança",
     template: "%s — Vitor Pouza",
@@ -30,6 +34,16 @@ export const metadata: Metadata = {
     "SaaS",
     "segurança de aplicações",
   ],
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Vitor Pouza",
+    title: "Vitor Pouza — Engenharia Full-Stack e Segurança",
+    description:
+      "Produtos full-stack, plataformas SaaS, integrações de IA e segurança aplicada.",
+    url: siteUrl,
+  },
+  robots: { index: isProduction, follow: isProduction },
 };
 
 export default function RootLayout({

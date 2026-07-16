@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Laboratório",
   description:
     "Experimentos públicos de Vitor Pouza em segurança, automação e interfaces interativas.",
+  alternates: { canonical: "/playground/" },
 };
 
 const experiments = [

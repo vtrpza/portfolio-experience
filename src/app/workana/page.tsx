@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Portfólio profissional — Vitor Pouza",
   description: "Versão de apresentação preparada para propostas na Workana.",
+  alternates: { canonical: "/workana/" },
   robots: { index: false, follow: false },
 };
 

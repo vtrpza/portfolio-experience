@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Trabalhos",
   description:
     "Projetos públicos e recortes de experiência de Vitor Pouza em produto, plataforma e segurança.",
+  alternates: { canonical: "/case-studies/" },
 };
 
 const cases = [

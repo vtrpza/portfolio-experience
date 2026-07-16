@@ -4,6 +4,7 @@ import { EditorialPage } from "@/components/editorial-page";
 export const metadata: Metadata = {
   title: "Ferramentas",
   description: "Ferramentas atuais de Vitor Pouza e por que cada uma permanece no fluxo.",
+  alternates: { canonical: "/uses/" },
 };
 
 const tools = [
