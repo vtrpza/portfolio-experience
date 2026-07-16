@@ -41,7 +41,7 @@ export type Article = {
   publishedAt: string;
   updatedAt: string;
   platform?: "htb";
-  contentStatus?: "retired-verified";
+  contentStatus?: "retired-verified" | "platform-general";
   retirementVerifiedAt?: string;
   spoilerLevel?: 0;
 };
@@ -205,7 +205,11 @@ export function validateArticle(value: unknown): string[] {
   if (value.ownership === "third-party-analysis" && OWN_AUTHORSHIP.test(`${String(value.title ?? "")} ${String(value.excerpt ?? "")} ${JSON.stringify(value.blocks ?? [])}`)) errors.push("third-party analysis cannot claim original authorship");
 
   if (value.platform === "htb") {
-    if (value.contentStatus !== "retired-verified" || !text(value.retirementVerifiedAt) || !DATE.test(value.retirementVerifiedAt) || value.spoilerLevel !== 0 || value.aiDisclosure !== "human-authored") errors.push("HTB article requires retired-verified, retirementVerifiedAt, spoilerLevel 0, and human-authored");
+    if (value.contentStatus === "platform-general") {
+      if (value.retirementVerifiedAt !== undefined || value.spoilerLevel !== 0 || value.aiDisclosure !== "human-authored") errors.push("General HTB article requires platform-general, no retirementVerifiedAt, spoilerLevel 0, and human-authored");
+    } else if (value.contentStatus !== "retired-verified" || !text(value.retirementVerifiedAt) || !DATE.test(value.retirementVerifiedAt) || value.spoilerLevel !== 0 || value.aiDisclosure !== "human-authored") {
+      errors.push("HTB article requires retired-verified, retirementVerifiedAt, spoilerLevel 0, and human-authored");
+    }
   } else if (value.platform !== undefined || value.contentStatus !== undefined || value.retirementVerifiedAt !== undefined || value.spoilerLevel !== undefined) {
     errors.push("HTB-only fields require platform htb");
   }

@@ -1,0 +1,476 @@
+{
+  "slug": "como-cheguei-ao-nivel-16-no-htb-com-o-hermes",
+  "title": "Como cheguei ao nível 16 no HTB com o Hermes",
+  "metaDescription": "Como usei o Hermes para preservar contexto, testar hipóteses e retomar estudos no HTB até chegar ao nível 16, sem writeups, spoilers ou decisões autônomas.",
+  "excerpt": "Chegar ao nível 16 foi o marco visível. O método foi preservar contexto, separar hipótese de evidência e encerrar cada sessão com um próximo passo claro.",
+  "kind": "field-note",
+  "cluster": "seguranca-e-evidencia",
+  "maturity": "research",
+  "ownership": "original",
+  "aiDisclosure": "human-authored",
+  "platform": "htb",
+  "contentStatus": "platform-general",
+  "spoilerLevel": 0,
+  "blocks": [
+    {
+      "type": "callout",
+      "text": "O Hermes não resolveu as máquinas por mim. Ele preservou o estado do trabalho para que cada sessão pudesse continuar da anterior.",
+      "sourceIds": [
+        "author-history-audit",
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Meu maior desperdício de tempo nos estudos no HTB não era um comando errado. Era voltar no dia seguinte e não lembrar por que eu havia descartado um caminho.",
+      "sourceIds": [
+        "author-history-audit"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O histórico do terminal mostrava o que eu tinha executado, mas raramente preservava a pergunta que eu tentava responder. Sem esse contexto, eu repetia enumeração, reabria caminhos já esgotados e confundia atividade com progresso.",
+      "sourceIds": [
+        "author-history-audit"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Foi esse problema que comecei a tratar com o Hermes: continuidade.",
+      "sourceIds": [
+        "author-history-audit",
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Às 02:14 de 16 de julho de 2026, fiz uma captura privada do meu perfil no HTB Labs. O nível exibido era 16. A imagem documenta esse ponto final, mas não mostra meu nível inicial, quanto tempo levei nem qual parcela do resultado poderia ser atribuída a uma ferramenta.",
+      "sourceIds": [
+        "level-16-capture",
+        "scope-audit"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "O título descreve somente o que a evidência sustenta: cheguei ao nível 16. Não estou dizendo que subi dezesseis níveis, que fiz isso em dois dias ou que o Hermes foi a causa do resultado.",
+      "sourceIds": [
+        "level-16-capture",
+        "scope-audit"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Isto não é um writeup",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Não vou citar máquinas, desafios, flags, credenciais, endpoints, payloads, comandos ou cadeias de exploração. O assunto aqui é o processo que usei para estudar sem começar cada sessão do zero.",
+      "sourceIds": [
+        "scope-audit",
+        "author-history-audit",
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "O problema era perder o estado da investigação",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Minhas sessões de CTF quase nunca terminavam em um ponto limpo. Às vezes eu precisava parar com três hipóteses abertas. Em outras, havia uma observação interessante, mas ainda sem evidência suficiente para chamá-la de descoberta. Também existiam caminhos que pareciam promissores e só depois se revelavam um rabbit hole.",
+      "sourceIds": [
+        "author-history-audit"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Se tudo isso ficasse apenas na conversa ou no terminal, a retomada dependia da minha memória. Eu precisava reconstruir perguntas básicas:",
+      "sourceIds": [
+        "author-history-audit"
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        "O que foi realmente observado?",
+        "O que era apenas uma hipótese?",
+        "Qual caminho já havia sido descartado, e por quê?",
+        "Que evidência mudou a direção da sessão?",
+        "Qual era o próximo teste seguro com maior chance de produzir informação nova?"
+      ],
+      "sourceIds": [
+        "author-history-audit",
+        "method-cycle"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O Hermes passou a manter essas respostas em um harness local, um conjunto pequeno de arquivos com funções diferentes.",
+      "sourceIds": [
+        "harness-structure",
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        "scope.md — Qual é o objetivo, quais são os limites e onde devo parar?",
+        "notes.md — O que observei, sem transformar observação em conclusão?",
+        "commands.log — O que foi executado e em que ordem?",
+        "hypotheses.md — O que pode explicar os sinais atuais e o que poderia refutar essa ideia?",
+        "findings.md — Quais conclusões já têm evidência suficiente?",
+        "trace.jsonl — Por que cada passo aconteceu, o que produziu e o que vem depois?",
+        "lessons-candidates.md — Que aprendizado pode ser generalizado depois de revisão e sanitização?",
+        "review.md — Onde a sessão terminou e de onde a próxima deve partir?"
+      ],
+      "sourceIds": [
+        "harness-structure"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A separação era deliberada. Uma anotação não virava finding por parecer convincente. Uma hipótese não desaparecia quando falhava; eu registrava o motivo do descarte para não testá-la novamente sem evidência nova.",
+      "sourceIds": [
+        "harness-structure",
+        "method-cycle"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "O registro também amadureceu",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "O método não nasceu pronto. Nos registros mais antigos, o trace era pouco mais que uma sequência de eventos. Na versão mais completa, cada entrada passou a carregar campos como:",
+      "sourceIds": [
+        "trace-evolution"
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        "timestamp",
+        "command",
+        "summary",
+        "evidence",
+        "hypothesis",
+        "next_step",
+        "risk",
+        "confirmation_required"
+      ],
+      "sourceIds": [
+        "trace-evolution"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Na retomada, a diferença era prática: o terminal respondia \"o que eu rodei?\"; o trace também respondia \"por que testei isso e o que devo verificar agora?\".",
+      "sourceIds": [
+        "trace-evolution"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O campo next_step evitava encerrar uma sessão com um vago \"continuar depois\". risk e confirmation_required deixavam claro quando o fluxo precisava parar para uma decisão humana. evidence obrigava a registrar o que o teste havia acrescentado, inclusive quando a resposta era \"nada útil\".",
+      "sourceIds": [
+        "trace-evolution",
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Como uma sessão funcionava",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Eu retomava pelo review.md, não pelo alvo. Primeiro verificava o que ainda era válido, quais hipóteses continuavam abertas e se o escopo havia mudado.",
+      "sourceIds": [
+        "harness-structure",
+        "method-cycle"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Durante a sessão, tentava manter um ciclo simples:",
+      "sourceIds": [
+        "method-cycle"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "observação → hipótese → teste → evidência → decisão",
+      "sourceIds": [
+        "method-cycle"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Se o teste enfraquecia a hipótese, eu atualizava seu estado. Se produzia um novo sinal, decidia se havia base para outro teste. Só uma conclusão sustentada ia para findings.md. Cada passo terminava com uma fila curta de próximos testes, não com uma lista infinita de possibilidades.",
+      "sourceIds": [
+        "method-cycle"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "No encerramento, o Hermes organizava o estado atual: o que mudou, o que foi descartado, o que ainda precisava de confirmação e qual era o próximo passo seguro. Na sessão seguinte, eu não precisava reconstruir toda a história para voltar a pensar.",
+      "sourceIds": [
+        "method-cycle",
+        "author-observation",
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "A regra que evitava transformar movimento em progresso",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Adotei um stop gate simples. Se três passos consecutivos não produzissem evidência útil, se a mesma hipótese começasse a se repetir ou se surgisse uma ação de maior risco, eu parava a execução e revisava o estado.",
+      "sourceIds": [
+        "stop-gate"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Essa revisão não executava ferramentas. Ela só precisava recomendar uma entre poucas decisões: continuar, enumerar mais, mudar de direção, pedir confirmação ou parar.",
+      "sourceIds": [
+        "stop-gate"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Uma das experiências que não chegou à conclusão foi importante justamente por isso. O agente continuava produzindo atividade depois de perder a hipótese central. Havia novos passos, mas pouca informação nova. Em vez de apagar essa tentativa, usei o registro para tornar o gate mais explícito e impedir que o mesmo padrão se repetisse sem revisão.",
+      "sourceIds": [
+        "nonconvergent-run",
+        "stop-gate"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "O que o Hermes fazia, e o que continuava comigo",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "O Hermes me ajudava a:",
+      "sourceIds": [
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        "resumir o último estado verificado;",
+        "separar observação, hipótese e finding;",
+        "manter visíveis os caminhos descartados;",
+        "apontar contradições e lacunas de evidência;",
+        "organizar próximos testes e marcar risco;",
+        "fechar a sessão com uma retomada clara."
+      ],
+      "sourceIds": [
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Eu continuava responsável por escolher o alvo, decidir quais testes faziam sentido, autorizar ações, interpretar os resultados e mudar de estratégia. Mesmo quando a execução mecânica podia ser assistida, a decisão não era terceirizada.",
+      "sourceIds": [
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Também tratei recuperação de conhecimento como orientação, não como prova. Metodologia genérica podia sugerir uma classe de teste, mas a sugestão entrava em hypotheses.md. Somente a resposta observada no laboratório poderia sustentar um finding.",
+      "sourceIds": [
+        "knowledge-boundary"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A mesma separação valia para memória. Flags, credenciais, cookies, tokens e detalhes específicos do alvo não deveriam virar memória global nem lição reutilizável. Um aprendizado primeiro entrava em lessons-candidates.md; só depois de sanitização e revisão poderia se tornar metodologia genérica.",
+      "sourceIds": [
+        "knowledge-boundary"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "O que mudou na prática",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Eu não cronometrei retomadas nem conduzi um experimento controlado. Portanto, não tenho uma porcentagem de ganho para publicar.",
+      "sourceIds": [
+        "author-observation"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "O benefício que observei foi mais simples: ao reabrir uma sessão, eu conseguia responder rapidamente onde estava, o que sabia, o que apenas suspeitava, o que já havia descartado e qual decisão precisava tomar em seguida.",
+      "sourceIds": [
+        "author-observation"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Isso também melhorou a qualidade das pausas. Parar deixou de significar abandonar o raciocínio. Bastava encerrar com o estado explícito.",
+      "sourceIds": [
+        "author-observation",
+        "method-cycle"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "O que o nível 16 demonstra, e o que não demonstra",
+      "sourceIds": [
+        "level-16-capture"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A captura registra meu perfil no nível 16 em 16 de julho de 2026, às 02:14 no horário local. Esse é o marco documentado.",
+      "sourceIds": [
+        "level-16-capture"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Ela não registra:",
+      "sourceIds": [
+        "level-16-capture",
+        "scope-audit"
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        "meu nível inicial;",
+        "uma subida de dezesseis níveis;",
+        "a duração total do processo;",
+        "um resultado obtido em dois dias;",
+        "quanto do resultado veio do Hermes;",
+        "quanto tempo o método economizou."
+      ],
+      "sourceIds": [
+        "level-16-capture",
+        "scope-audit",
+        "author-observation"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Os registros locais mostram que o processo existiu e foi refinado ao longo das sessões. Isso não estabelece causalidade entre usar o Hermes e alcançar o nível 16. O que posso dizer é que o método acompanhou esse período e, na minha experiência, exigiu menos reconstrução de contexto a cada retomada.",
+      "sourceIds": [
+        "author-history-audit",
+        "trace-evolution",
+        "author-observation",
+        "scope-audit"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A captura bruta permanece privada porque expõe o identificador do perfil e elementos do desktop. Uma eventual versão pública precisa ser recortada e sanitizada antes da publicação.",
+      "sourceIds": [
+        "level-16-capture",
+        "scope-audit"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "O aprendizado que quero preservar",
+      "sourceIds": []
+    },
+    {
+      "type": "paragraph",
+      "text": "Chegar ao nível 16 é o marco visível. O que pretendo reutilizar em outros laboratórios e pentests autorizados é o processo:",
+      "sourceIds": [
+        "level-16-capture",
+        "method-cycle",
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        "registrar antes de concluir;",
+        "formular hipóteses que possam ser refutadas;",
+        "não promover atividade a evidência;",
+        "preservar o motivo de um caminho descartado;",
+        "deixar o próximo passo explícito antes de parar;",
+        "manter decisões de risco sob controle humano."
+      ],
+      "sourceIds": [
+        "method-cycle",
+        "decision-boundary"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Na próxima sessão, o objetivo não é lembrar tudo. É abrir o registro, verificar o que ainda é verdade e tomar a próxima decisão a partir dali.",
+      "sourceIds": [
+        "method-cycle",
+        "author-observation"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "level-16-capture",
+      "title": "Captura privada sanitizada do nível observado"
+    },
+    {
+      "id": "author-history-audit",
+      "title": "Relato humano revisado sobre o problema vivido"
+    },
+    {
+      "id": "harness-structure",
+      "title": "Auditoria humana sanitizada da estrutura do harness"
+    },
+    {
+      "id": "trace-evolution",
+      "title": "Auditoria humana sanitizada da evolução do trace"
+    },
+    {
+      "id": "method-cycle",
+      "title": "Ciclo de investigação revisado pelo autor"
+    },
+    {
+      "id": "stop-gate",
+      "title": "Stop gate revisado pelo autor"
+    },
+    {
+      "id": "nonconvergent-run",
+      "title": "Execução não convergente sanitizada"
+    },
+    {
+      "id": "decision-boundary",
+      "title": "Fronteira entre assistência e decisão humana"
+    },
+    {
+      "id": "knowledge-boundary",
+      "title": "Fronteira entre recuperação, memória e prova"
+    },
+    {
+      "id": "author-observation",
+      "title": "Observação humana sobre a retomada"
+    },
+    {
+      "id": "scope-audit",
+      "title": "Auditoria humana final de escopo e spoilers"
+    }
+  ],
+  "limitations": [
+    "Relato retrospectivo, sem medição controlada de tempo, produtividade ou causalidade.",
+    "A captura documenta somente o nível 16 observado no ponto final.",
+    "Materiais específicos de sessões HTB não foram incluídos no artigo nem enviados ao pipeline de IA.",
+    "A execução não convergente é descrita apenas em nível de processo, sem detalhes reproduzíveis do alvo.",
+    "A captura bruta permanece privada porque expõe identificador de perfil e elementos do desktop."
+  ],
+  "publishedAt": "2026-07-16",
+  "updatedAt": "2026-07-16"
+}

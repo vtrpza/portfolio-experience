@@ -985,11 +985,15 @@ button[aria-pressed="true"] .control-signal {
 
 .article-sources li {
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  gap: 16px;
+  grid-template-columns: minmax(180px, 0.35fr) minmax(0, 1fr);
+  gap: 24px;
   color: var(--muted);
   line-height: 1.6;
   scroll-margin-top: 120px;
+}
+
+.article-sources li > span {
+  overflow-wrap: anywhere;
 }
 
 .article-actions {
@@ -1222,8 +1226,8 @@ button[aria-pressed="true"] .control-signal {
   }
 
   .article-sources li {
-    grid-template-columns: 48px minmax(0, 1fr);
-    gap: 10px;
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .hero-actions {

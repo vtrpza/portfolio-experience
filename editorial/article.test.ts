@@ -176,6 +176,19 @@ describe("editorial contracts", () => {
       spoilerLevel: 0,
       aiDisclosure: "human-authored",
     }))).toEqual([]);
+    expect(validateArticle(article({
+      platform: "htb",
+      contentStatus: "platform-general",
+      spoilerLevel: 0,
+      aiDisclosure: "human-authored",
+    }))).toEqual([]);
+    expect(validateArticle(article({
+      platform: "htb",
+      contentStatus: "platform-general",
+      retirementVerifiedAt: "2026-07-15",
+      spoilerLevel: 0,
+      aiDisclosure: "human-authored",
+    })).join(" ")).toMatch(/platform-general.*no retirementVerifiedAt/i);
   });
 });
 

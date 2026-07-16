@@ -67,10 +67,12 @@ export default function EditorialPolicyPage() {
           <p className="section-code">05 / HTB e CTF</p>
           <h2>Depois da flag, sem entregar a solução.</h2>
           <p>
-            Conteúdo específico de Hack The Box não entra no pipeline de IA. Uma nota manual só
-            pode tratar conteúdo cuja aposentadoria foi verificada, com spoiler level zero e sem
-            flags, hashes, credenciais, IPs, portas decisivas, payloads, endpoints ou cadeias de
-            exploração. Conteúdo ativo, Enterprise ou sem autorização não é publicado.
+            Relatos gerais de processo permanecem manuais, usam spoiler level zero e não incluem
+            conteúdo de máquinas, challenges ou soluções; como não tratam um alvo específico, não
+            recebem uma data de aposentadoria inventada. Conteúdo específico de Hack The Box não
+            entra no pipeline de IA e só pode tratar material cuja aposentadoria foi verificada,
+            sem flags, hashes, credenciais, IPs, portas decisivas, payloads, endpoints ou cadeias
+            de exploração. Conteúdo ativo, Enterprise ou sem autorização não é publicado.
           </p>
         </section>
 
