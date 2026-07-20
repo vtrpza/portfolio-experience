@@ -10,9 +10,11 @@ describe("Observatory", () => {
     fireEvent.click(screen.getByRole("button", { name: /segurança/i }));
 
     expect(container.querySelector(".system-stack")).toHaveAttribute("data-active", "security");
+    expect(screen.getByText("reconctx")).toBeInTheDocument();
+    expect(screen.getByText(/em desenvolvimento/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /ver evidência/i })).toHaveAttribute(
       "href",
-      "/case-studies#ghostclaw",
+      "/case-studies#reconctx",
     );
   });
 });

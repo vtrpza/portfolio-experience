@@ -15,12 +15,12 @@ export const systemLayers: ReadonlyArray<{
     index: "01",
     label: "Produto",
     detail: "Problema & experiência",
-    project: "ReplyFlow",
+    project: "Repo Pulse",
     summary:
-      "CRM que reúne descoberta de vagas, pipeline, contatos e comunicação em um único fluxo.",
+      "Radar que encontra e compara repositórios GitHub para uma necessidade concreta.",
     evidence:
-      "Seis fontes de vagas, autenticação, e-mail, pagamentos e monitoramento em uma aplicação.",
-    href: "/case-studies/#replyflow",
+      "Filtros rastreáveis, sinal comparativo, perfis de ranking e snapshots persistidos no D1.",
+    href: "/case-studies/#repo-pulse",
   },
   {
     id: "platform",
@@ -29,9 +29,9 @@ export const systemLayers: ReadonlyArray<{
     detail: "Dados & arquitetura",
     project: "Blog VR",
     summary:
-      "Motor editorial rápido e auditável construído com Astro, TypeScript e MDX.",
+      "Plataforma editorial em produção em um Worker SSR, com fontes verificáveis e automação governada.",
     evidence:
-      "Conteúdo, regras e integrações separados; testes e build antes de cada etapa concluída.",
+      "D1, Workflows, quality gates e formulário protegido por Turnstile com integração ao Pipedrive.",
     href: "/case-studies/#blog-vr",
   },
   {
@@ -39,12 +39,12 @@ export const systemLayers: ReadonlyArray<{
     index: "03",
     label: "Segurança",
     detail: "Risco & evidência",
-    project: "GhostClaw",
+    project: "reconctx",
     summary:
-      "Laboratório público para pesquisa autorizada com escopo, estado e evidência.",
+      "Ferramenta em desenvolvimento que transforma recon limitado em handoffs portáteis e verificáveis.",
     evidence:
-      "Validação por reprodução, estado rastreável e comunicação conservadora do impacto.",
-    href: "/case-studies/#ghostclaw",
+      "Artefatos rastreáveis, fatos com proveniência, lacunas explícitas e checksums.",
+    href: "/case-studies/#reconctx",
   },
 ];
 
