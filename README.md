@@ -7,8 +7,8 @@
 <h1 align="center">Portfolio Experience</h1>
 
 <p align="center">
-  <strong>Produto, plataforma e segurança — do problema à produção.</strong><br />
-  Um portfólio público desenhado como sistema inspecionável: decisões, provas e limites no lugar de adjetivos.
+  <strong>Transformo problemas complexos em produtos confiáveis — da decisão à produção.</strong><br />
+  Um portfólio editorial para fundadores e líderes de produto, organizado por problemas, decisões e evidências públicas.
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@
 
 <p align="center">
   <a href="https://vitorpouza-dev.vhnpouza.workers.dev">
-    <img src="artifacts/screenshots/home-desktop.png" alt="Página inicial do portfólio de Vitor Pouza" width="100%" />
+    <img src="public/og.png" alt="Transformo problemas complexos em produtos confiáveis — da decisão à produção. Vitor Pouza." width="100%" />
   </a>
 </p>
 
@@ -42,9 +42,9 @@ Este repositório reúne o portfólio público de **Vitor Pouza**, engenheiro fu
 3. Que evidência sustenta o trabalho?
 4. Onde termina o alcance da conclusão?
 
-A home transforma essas perguntas em um observatório interativo de três camadas. O restante do site aprofunda projetos, trajetória, experimentos e decisões técnicas com conteúdo semântico, navegável e versionado.
+A home transforma essas perguntas em uma narrativa editorial direta: proposta de valor e métricas verificáveis, um ledger de casos, o método de trabalho, o artigo mais recente e um convite claro para conversar. O restante do site aprofunda projetos, trajetória, experimentos e decisões técnicas com conteúdo semântico, navegável e versionado.
 
-## Um sistema, três camadas
+## Três casos, um método
 
 | Camada | Projeto | O que pode ser inspecionado |
 | --- | --- | --- |
@@ -52,7 +52,7 @@ A home transforma essas perguntas em um observatório interativo de três camada
 | **02 · Plataforma** | [Blog VR](https://github.com/vtrpza/blog-vr) | Worker SSR em TypeScript no domínio próprio, com D1, Workflows, quality gates, Turnstile e Pipedrive. |
 | **03 · Segurança** | [reconctx](https://github.com/vtrpza/reconctx) | Ferramenta em desenvolvimento para compilar recon limitado em handoffs rastreáveis e verificáveis. |
 
-O efeito tridimensional é feito com **React + CSS**, sem WebGL, Three.js ou uma dependência gráfica pesada. A interface preserva navegação por teclado, foco visível e `prefers-reduced-motion`.
+A interface mantém o canvas escuro e a identidade verde-limão em uma composição editorial de colunas, linhas e tipografia forte. A navegação móvel usa `<details>` nativo; skip link, foco visível, alvos de toque de 44 px e `prefers-reduced-motion` preservam uma experiência acessível sem JavaScript visual adicional.
 
 ## Evidência antes de adjetivos
 
@@ -80,7 +80,7 @@ O pipeline usa schemas estritos, allowlist de fontes, bloqueio de material sens�
 
 | Rota | Conteúdo |
 | --- | --- |
-| `/` | Posicionamento, observatório, evidência profissional e trabalho selecionado. |
+| `/` | Posicionamento, métricas de produção, ledger de casos, método, artigo recente e contato direto. |
 | `/case-studies/` | Repo Pulse, Blog VR, reconctx e trajetória profissional. |
 | `/playground/` | Experimentos em segurança, automação, interfaces e IA. |
 | `/artigos/` | Publicações agrupadas por área. |
@@ -103,7 +103,7 @@ flowchart LR
 
 ```text
 src/app/                     páginas, metadata, sitemap e robots
-src/components/              navegação, hero, observatório e layout editorial
+src/components/              navegação, hero, casos e layout editorial
 src/lib/articles.ts          carga e validação dos artigos durante o build
 content/articles/            fonte pública e versionada das publicações
 content/social/instagram/    pacotes sociais derivados de artigos aprovados
@@ -185,7 +185,7 @@ SITE_ENV=production npm run deploy
 
 ## Princípios do projeto
 
-- Conteúdo continua útil sem depender da camada visual interativa.
+- Conteúdo continua útil sem depender de movimento ou ornamentação visual.
 - Acessibilidade e movimento reduzido fazem parte da implementação, não do checklist final.
 - Cliente, resultado, escala ou depoimento nunca são inventados.
 - Segredos, credenciais, tokens, PII e infraestrutura privada não entram no conteúdo público.

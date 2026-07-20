@@ -1,64 +1,110 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
 import type { Article } from "../../editorial/article";
 import { HeroCopy } from "./hero-copy";
 import { systemLayers } from "./observatory-controls";
 import { SiteNav } from "./site-nav";
 
 type ExperienceShellProps = {
-  scene: ReactNode;
   latestArticle?: Pick<Article, "slug" | "title" | "excerpt">;
 };
 
-export function ExperienceShell({ scene, latestArticle }: ExperienceShellProps) {
+export function ExperienceShell({ latestArticle }: ExperienceShellProps) {
   return (
     <div className="experience-shell">
       <SiteNav />
 
-      <main>
-        <div className="experience-main">
-          <section className="story-panel" aria-labelledby="home-title">
+      <main id="main-content" className="home-main" tabIndex={-1}>
+        <section className="home-hero" aria-labelledby="home-title">
+          <div className="story-panel">
             <HeroCopy />
-          </section>
+          </div>
 
-          <section className="observatory" aria-labelledby="system-atlas-title">
-            <header className="scene-heading">
+          <aside className="hero-proof" aria-labelledby="proof-title">
+            <p className="section-code">Evidência em produção</p>
+            <h2 id="proof-title">Resultados, não promessas.</h2>
+            <dl className="metrics-grid">
               <div>
-                <p>Observatório de sistemas</p>
-                <h2 id="system-atlas-title">Um sistema, três camadas.</h2>
+                <dt>8+</dt>
+                <dd>anos de experiência</dd>
               </div>
-              <p>Escolha uma camada para ver como ela aparece no trabalho real.</p>
-            </header>
-            <div className="scene-frame">{scene}</div>
-          </section>
-        </div>
-
-        <section className="work-rail" aria-label="Evidência profissional">
-          <span>Evidência pública</span>
-          <dl>
-            <div><dt>08+</dt><dd>anos de experiência</dd></div>
-            <div><dt>04</dt><dd>MVPs em 18 meses</dd></div>
-            <div><dt>10k+</dt><dd>usuários diários em plataformas enterprise</dd></div>
-          </dl>
-          <Link href="/case-studies/#trajectory">Ver evidências <span aria-hidden="true">→</span></Link>
+              <div>
+                <dt>4</dt>
+                <dd>MVPs entregues em 18 meses</dd>
+              </div>
+              <div>
+                <dt>10k+</dt>
+                <dd>usuários diários em produção</dd>
+              </div>
+            </dl>
+            <Link href="/case-studies/#trajectory">
+              Ver trajetória <span aria-hidden="true">→</span>
+            </Link>
+          </aside>
         </section>
 
         <section className="home-work" id="trabalhos" aria-labelledby="work-title">
-          <header>
+          <header className="section-heading">
             <p className="section-code">Trabalho selecionado</p>
-            <h2 id="work-title">Três recortes do mesmo método.</h2>
+            <h2 id="work-title">Decisões que chegam à produção.</h2>
+            <p>
+              Três problemas diferentes, tratados com o mesmo compromisso:
+              entender, construir e provar.
+            </p>
           </header>
-          <div className="home-work-grid">
+          <ol className="case-ledger">
             {systemLayers.map((layer) => (
-              <article key={layer.id}>
-                <span>{layer.index} / {layer.label}</span>
-                <h3>{layer.project}</h3>
-                <p>{layer.summary}</p>
-                <p className="home-work-proof"><strong>Prova:</strong> {layer.evidence}</p>
-                <Link href={layer.href}>Ver evidência <span aria-hidden="true">→</span></Link>
-              </article>
+              <li className="case-entry" key={layer.id}>
+                <span className="case-index" aria-hidden="true">{layer.index}</span>
+                <article aria-labelledby={`case-${layer.id}`}>
+                  <header className="case-heading">
+                    <p>{layer.label}</p>
+                    <h3 id={`case-${layer.id}`}>{layer.project}</h3>
+                  </header>
+                  <dl className="case-narrative">
+                    <div>
+                      <dt>Problema</dt>
+                      <dd>{layer.problem}</dd>
+                    </div>
+                    <div>
+                      <dt>Decisão</dt>
+                      <dd>{layer.summary}</dd>
+                    </div>
+                    <div>
+                      <dt>Prova</dt>
+                      <dd>{layer.evidence}</dd>
+                    </div>
+                  </dl>
+                  <Link href={layer.href} aria-label={`Ver evidência de ${layer.project}`}>
+                    Evidência pública <span aria-hidden="true">→</span>
+                  </Link>
+                </article>
+              </li>
             ))}
-          </div>
+          </ol>
+        </section>
+
+        <section className="home-method" aria-labelledby="method-title">
+          <header className="section-heading">
+            <p className="section-code">Método</p>
+            <h2 id="method-title">Do problema real à operação confiável.</h2>
+          </header>
+          <ol className="method-grid">
+            <li>
+              <span>01 / Definir</span>
+              <h3>O problema real</h3>
+              <p>Alinho contexto, risco e critério de sucesso antes de escolher a solução.</p>
+            </li>
+            <li>
+              <span>02 / Construir</span>
+              <h3>O sistema completo</h3>
+              <p>Uno produto, interface, arquitetura, dados e integrações em um fluxo coerente.</p>
+            </li>
+            <li>
+              <span>03 / Produção</span>
+              <h3>Confiança para operar</h3>
+              <p>Chego à produção com testes, observabilidade, segurança e handoff claro.</p>
+            </li>
+          </ol>
         </section>
 
         {latestArticle ? (
@@ -78,10 +124,16 @@ export function ExperienceShell({ scene, latestArticle }: ExperienceShellProps) 
         <section className="home-contact" aria-labelledby="home-contact-title">
           <div>
             <p className="section-code">Próximo projeto</p>
-            <h2 id="home-contact-title">Tem um produto, integração ou risco para resolver?</h2>
+            <h2 id="home-contact-title">Vamos transformar uma decisão difícil em produto.</h2>
+            <p>Conte o contexto, o risco e onde você precisa chegar.</p>
           </div>
           <div>
-            <a className="primary-action" href="mailto:vhnpouza@gmail.com">Conversar por e-mail <span aria-hidden="true">↗</span></a>
+            <a
+              className="primary-action"
+              href="mailto:vhnpouza@gmail.com?subject=Novo%20projeto%20via%20vitorpouza.dev"
+            >
+              Enviar contexto por e-mail <span aria-hidden="true">↗</span>
+            </a>
             <Link className="text-action" href="/about/">Como trabalho</Link>
           </div>
         </section>

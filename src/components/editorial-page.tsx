@@ -22,10 +22,10 @@ export function EditorialPage({
   return (
     <div className="content-shell">
       <SiteNav />
-      <main className="content-main">
+      <main id="main-content" className="content-main" tabIndex={-1}>
         <aside className="content-index">
           <p>{code}</p>
-          <Link href="/">← Voltar ao observatório</Link>
+          <Link href="/">← Voltar ao início</Link>
         </aside>
         <article className="content-article">
           <header className="content-header">

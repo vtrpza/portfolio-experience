@@ -6,6 +6,7 @@ export const systemLayers: ReadonlyArray<{
   label: string;
   detail: string;
   project: string;
+  problem: string;
   summary: string;
   evidence: string;
   href: string;
@@ -16,6 +17,8 @@ export const systemLayers: ReadonlyArray<{
     label: "Produto",
     detail: "Problema & experiência",
     project: "Repo Pulse",
+    problem:
+      "Encontrar e comparar repositórios relevantes exigia abrir muitos projetos e reconstruir o contexto manualmente.",
     summary:
       "Radar que encontra e compara repositórios GitHub para uma necessidade concreta.",
     evidence:
@@ -28,6 +31,8 @@ export const systemLayers: ReadonlyArray<{
     label: "Plataforma",
     detail: "Dados & arquitetura",
     project: "Blog VR",
+    problem:
+      "A aquisição orgânica dependia de uma operação editorial sem controle técnico suficiente.",
     summary:
       "Plataforma editorial em produção em um Worker SSR, com fontes verificáveis e automação governada.",
     evidence:
@@ -40,6 +45,8 @@ export const systemLayers: ReadonlyArray<{
     label: "Segurança",
     detail: "Risco & evidência",
     project: "reconctx",
+    problem:
+      "Saídas de recon chegavam sem contexto portátil, proveniência e limites claros.",
     summary:
       "Ferramenta em desenvolvimento que transforma recon limitado em handoffs portáteis e verificáveis.",
     evidence:
@@ -47,33 +54,3 @@ export const systemLayers: ReadonlyArray<{
     href: "/case-studies/#reconctx",
   },
 ];
-
-type ObservatoryControlsProps = {
-  active: SystemLayer;
-  onSelect: (layer: SystemLayer) => void;
-};
-
-export function ObservatoryControls({
-  active,
-  onSelect,
-}: ObservatoryControlsProps) {
-  return (
-    <div className="observatory-controls" role="group" aria-label="Inspecionar camadas do sistema">
-      {systemLayers.map((layer) => (
-        <button
-          key={layer.id}
-          type="button"
-          aria-pressed={active === layer.id}
-          onClick={() => onSelect(layer.id)}
-        >
-          <span className="control-index">{layer.index}</span>
-          <span className="control-copy">
-            <strong>{layer.label}</strong>
-            <small>{layer.detail}</small>
-          </span>
-          <span className="control-signal" aria-hidden="true" />
-        </button>
-      ))}
-    </div>
-  );
-}
