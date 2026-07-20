@@ -1,32 +1,59 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { ExperienceShell } from "./experience-shell";
 
 describe("ExperienceShell", () => {
-  it("trata a cena 3D como melhoria opcional", () => {
-    render(<ExperienceShell scene={<div>cena carregada</div>} />);
+  it("abre com evidência de produção e conversão direta", () => {
+    render(<ExperienceShell />);
 
     expect(
-      screen.getByRole("region", { name: /um sistema, três camadas/i }),
+      screen.getByRole("heading", {
+        name: "Transformo problemas complexos em produtos confiáveis — da decisão à produção.",
+      }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/cena carregada/i)).toBeInTheDocument();
-    expect(screen.getByText(/escolha uma camada/i)).toBeInTheDocument();
+    expect(screen.getByText("8+")).toBeInTheDocument();
+    expect(screen.getByText(/MVPs entregues em 18 meses/i)).toBeInTheDocument();
+    expect(screen.getByText("10k+")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /enviar contexto por e-mail/i })).toHaveAttribute(
+      "href",
+      "mailto:vhnpouza@gmail.com?subject=Novo%20projeto%20via%20vitorpouza.dev",
+    );
   });
 
-  it("mantém a jornada principal sem canvas", () => {
-    render(<ExperienceShell scene={null} />);
+  it("mostra cada projeto uma vez com problema, decisão, prova e evidência", () => {
+    const { container } = render(<ExperienceShell />);
+    const projects = [
+      ["Repo Pulse", "/case-studies#repo-pulse"],
+      ["Blog VR", "/case-studies#blog-vr"],
+      ["reconctx", "/case-studies#reconctx"],
+    ] as const;
 
-    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /ver 3 trabalhos/i })).toBeInTheDocument();
-    expect(screen.getByText(/MVPs em 18 meses/i)).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Repo Pulse/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /conversar por e-mail/i })).toBeInTheDocument();
+    expect(container.querySelectorAll("#trabalhos .case-entry")).toHaveLength(3);
+    projects.forEach(([project, href]) => {
+      const headings = screen.getAllByRole("heading", { name: project });
+      expect(headings).toHaveLength(1);
+      const article = headings[0].closest("article");
+      expect(article).not.toBeNull();
+      expect(within(article!).getByText("Problema")).toBeInTheDocument();
+      expect(within(article!).getByText("Decisão")).toBeInTheDocument();
+      expect(within(article!).getByText("Prova")).toBeInTheDocument();
+      expect(
+        within(article!).getByRole("link", { name: `Ver evidência de ${project}` }),
+      ).toHaveAttribute("href", href);
+    });
+
+    expect(screen.getByRole("heading", { level: 3, name: "O problema real" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "O sistema completo" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "Confiança para operar" })).toBeInTheDocument();
   });
 
-  it("destaca o artigo aprovado mais recente quando disponível", () => {
-    render(
+  it("renderiza o artigo mais recente apenas quando disponível", () => {
+    const { rerender } = render(<ExperienceShell />);
+
+    expect(screen.queryByText("Artigo recente")).not.toBeInTheDocument();
+
+    rerender(
       <ExperienceShell
-        scene={null}
         latestArticle={{
           slug: "artigo-verificado",
           title: "Artigo verificado",
@@ -35,6 +62,7 @@ describe("ExperienceShell", () => {
       />,
     );
 
+    expect(screen.getByText("Artigo recente")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /artigo verificado/i })).toHaveAttribute(
       "href",
       "/artigos/artigo-verificado",

@@ -4,30 +4,35 @@ export function HeroCopy() {
   return (
     <div className="hero-copy">
       <p className="eyebrow">
-        <span>Produtos web</span>
+        <span>Produto</span>
         <span aria-hidden="true">·</span>
-        <span>Integrações</span>
+        <span>Engenharia</span>
         <span aria-hidden="true">·</span>
-        <span>Segurança aplicada</span>
+        <span>Segurança</span>
       </p>
 
       <h1 id="home-title">
-        Construo produtos full-stack confiáveis, <em>do problema à produção.</em>
+        Transformo problemas complexos em produtos confiáveis —{" "}
+        <em>da decisão à produção.</em>
       </h1>
 
       <p className="hero-intro">
-        Há mais de oito anos, uno produto, arquitetura e segurança para lançar e
-        evoluir sistemas complexos.
+        Ajudo fundadores e líderes de produto a reduzir incerteza, construir o
+        sistema inteiro e operar com confiança.
       </p>
 
       <div className="hero-actions">
-        <Link className="primary-action" href="#trabalhos">
-          Ver 3 trabalhos
+        <a
+          className="primary-action"
+          href="mailto:vhnpouza@gmail.com?subject=Novo%20projeto%20via%20vitorpouza.dev"
+        >
+          Conversar sobre o projeto
+          <span aria-hidden="true">↗</span>
+        </a>
+        <Link className="text-action" href="#trabalhos">
+          Ver trabalhos
           <span aria-hidden="true">↓</span>
         </Link>
-        <a className="text-action" href="mailto:vhnpouza@gmail.com">
-          Falar sobre um projeto
-        </a>
       </div>
     </div>
   );

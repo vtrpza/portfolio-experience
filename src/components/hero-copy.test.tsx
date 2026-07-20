@@ -3,21 +3,25 @@ import { describe, expect, it } from "vitest";
 import { HeroCopy } from "./hero-copy";
 
 describe("HeroCopy", () => {
-  it("abre com um ponto de vista de engenharia", () => {
+  it("abre com a proposta de valor aprovada", () => {
     render(<HeroCopy />);
 
     expect(
       screen.getByRole("heading", {
-        name: /construo produtos full-stack confiáveis, do problema à produção/i,
+        name: "Transformo problemas complexos em produtos confiáveis — da decisão à produção.",
       }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/uno produto, arquitetura e segurança/i)).toBeInTheDocument();
+    expect(screen.getByText(/fundadores e líderes de produto/i)).toBeInTheDocument();
   });
 
-  it("leva o visitante direto aos trabalhos", () => {
+  it("oferece conversa direta e acesso aos trabalhos", () => {
     render(<HeroCopy />);
 
-    expect(screen.getByRole("link", { name: /ver 3 trabalhos/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /conversar sobre o projeto/i })).toHaveAttribute(
+      "href",
+      "mailto:vhnpouza@gmail.com?subject=Novo%20projeto%20via%20vitorpouza.dev",
+    );
+    expect(screen.getByRole("link", { name: /ver trabalhos/i })).toHaveAttribute(
       "href",
       "#trabalhos",
     );
