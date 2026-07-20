@@ -48,9 +48,9 @@ A home transforma essas perguntas em um observatório interativo de três camada
 
 | Camada | Projeto | O que pode ser inspecionado |
 | --- | --- | --- |
-| **01 · Produto** | [ReplyFlow](https://github.com/vtrpza/replyflow) | Descoberta de vagas, pipeline ATS, contatos, e-mail, billing e observabilidade em um produto full-stack. |
-| **02 · Plataforma** | [Blog VR](https://github.com/vtrpza/blog-vr) | Conteúdo como sistema de aquisição, com Astro, TypeScript, MDX e arquitetura preparada para Cloudflare. |
-| **03 · Segurança** | [GhostClaw](https://github.com/vtrpza/ghost-claw) | Pesquisa autorizada organizada por hipótese, estado, reprodução e evidência rastreável. |
+| **01 · Produto** | [Repo Pulse](https://github.com/vtrpza/repo-pulse) | Busca e comparação de repositórios GitHub com filtros, sinal comparativo e histórico em D1. |
+| **02 · Plataforma** | [Blog VR](https://github.com/vtrpza/blog-vr) | Worker SSR em TypeScript no domínio próprio, com D1, Workflows, quality gates, Turnstile e Pipedrive. |
+| **03 · Segurança** | [reconctx](https://github.com/vtrpza/reconctx) | Ferramenta em desenvolvimento para compilar recon limitado em handoffs rastreáveis e verificáveis. |
 
 O efeito tridimensional é feito com **React + CSS**, sem WebGL, Three.js ou uma dependência gráfica pesada. A interface preserva navegação por teclado, foco visível e `prefers-reduced-motion`.
 
@@ -81,7 +81,7 @@ O pipeline usa schemas estritos, allowlist de fontes, bloqueio de material sens�
 | Rota | Conteúdo |
 | --- | --- |
 | `/` | Posicionamento, observatório, evidência profissional e trabalho selecionado. |
-| `/case-studies/` | ReplyFlow, Blog VR, GhostClaw e trajetória profissional. |
+| `/case-studies/` | Repo Pulse, Blog VR, reconctx e trajetória profissional. |
 | `/playground/` | Experimentos em segurança, automação, interfaces e IA. |
 | `/artigos/` | Publicações agrupadas por área. |
 | `/artigos/[slug]/` | Texto, fontes, limitações e proveniência. |

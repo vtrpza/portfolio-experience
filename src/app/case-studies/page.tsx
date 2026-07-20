@@ -12,59 +12,59 @@ const cases = [
   {
     index: "01",
     area: "Produto próprio",
-    title: "ReplyFlow — busca de trabalho tratada como operação.",
+    title: "Repo Pulse — descoberta técnica guiada por evidência.",
     summary:
-      "CRM para desenvolvedores que reúne descoberta de vagas, pipeline ATS, contexto de recrutadores e outreach em um fluxo único.",
+      "Radar que encontra repositórios públicos para uma necessidade concreta e compara candidatos por sinais verificáveis.",
     context:
-      "O processo estava espalhado entre links, planilhas, e-mail e memória. O produto precisava reduzir dispersão sem virar mais um job board.",
+      "A busca do GitHub entrega volume, mas comparar adequação, atividade e maturidade ainda exige abrir muitos projetos e reconstruir o contexto manualmente.",
     decision:
-      "Uma aplicação full-stack com seis conectores de vagas, pipeline, contatos e e-mail no mesmo modelo operacional. O recorte inicial prioriza direção e consistência.",
+      "Uma busca filtrável por linguagem, tópico, atividade, estrelas, licença e forks, com radares prontos e um sinal comparativo de 0 a 100. O Worker concentra o acesso ao GitHub e o D1 preserva snapshots.",
     evidence:
-      "Next.js 16, React 19, TypeScript, SQLite/Drizzle, NextAuth, Gmail API, Sentry, PostHog e deploy na Fly.io. Repositório público e versão release candidate.",
+      "Next.js 16 via Vinext, React 19, TypeScript, Cloudflare Worker, Drizzle e D1. Testes cobrem consulta, perfis de tendência, sinal comparativo e HTML renderizado.",
     result:
-      "Os fluxos centrais estão estáveis: sourcing, acompanhamento ATS, contatos, outreach, billing e instrumentação. O repositório recebeu 5 estrelas no GitHub.",
-    id: "replyflow",
-    href: "https://github.com/vtrpza/replyflow",
-    linkLabel: "Inspecionar o ReplyFlow",
-    tags: ["Produto", "Next.js", "Integrações", "Observabilidade"],
+      "A aplicação está publicada com busca, ranking ajustável e histórico real de estrelas e forks. O cache em D1 mantém o último snapshot disponível quando o GitHub falha.",
+    id: "repo-pulse",
+    href: "https://github.com/vtrpza/repo-pulse",
+    linkLabel: "Inspecionar o Repo Pulse",
+    tags: ["Produto", "Next.js", "Cloudflare", "D1"],
   },
   {
     index: "02",
     area: "Aquisição orgânica",
-    title: "Blog VR — conteúdo como sistema de aquisição.",
+    title: "Blog VR — operação editorial em produção.",
     summary:
-      "Motor editorial para transformar conteúdo jurídico em aquisição orgânica, com publicação controlada e arquitetura preparada para integrações comerciais.",
+      "Plataforma para publicar conteúdo jurídico com fontes verificáveis e conectar aquisição orgânica à operação comercial.",
     context:
-      "O desafio não era apenas publicar artigos. Era criar uma base rápida, auditável e segura para conteúdo sensível, geração de leads e evolução contínua.",
+      "Conteúdo jurídico exige velocidade sem abrir mão de fontes, linguagem responsável, rastreabilidade e proteção dos dados enviados por potenciais clientes.",
     decision:
-      "Astro, TypeScript e MDX para reduzir JavaScript no cliente; implementação por slices verticais; regras reutilizáveis em TDD; nenhuma publicação automática por IA.",
+      "Worker SSR em TypeScript, sem framework front-end ou CMS. D1 mantém o estado editorial, Workflows orquestram pesquisa e redação com IA, e quality gates determinísticos bloqueiam conteúdo fora das regras.",
     evidence:
-      "Pipeline local de teste, check e build; arquitetura preparada para Cloudflare Pages/Workers/D1, Turnstile, Pipedrive e rastreamento.",
+      "Domínio próprio na Cloudflare, fontes oficiais por allowlist, publicação atômica, sitemap e canônicos; formulário protegido por Turnstile, rate limit e idempotência antes do Pipedrive.",
     result:
-      "A entrega separa conteúdo, regras e integrações, preserva revisão humana e deixa o crescimento do canal independente de um CMS pesado.",
+      "O blog está em produção com páginas temáticas e artigos publicados. Conteúdo reprovado não ocupa vaga de publicação, e integrações críticas falham de forma fechada.",
     id: "blog-vr",
     href: "https://github.com/vtrpza/blog-vr",
     linkLabel: "Inspecionar o Blog VR",
-    tags: ["Astro", "TypeScript", "SEO", "Cloudflare"],
+    tags: ["Cloudflare Workers", "TypeScript", "D1", "Workflows"],
   },
   {
     index: "03",
     area: "Segurança aplicada",
-    title: "GhostClaw — pesquisa autorizada com estado e evidência.",
+    title: "reconctx — evidência portátil para recon autorizado.",
     summary:
-      "Laboratório público para organizar recon, hipóteses, testes, validação e relatório em programas de bug bounty autorizados.",
+      "Ferramenta em desenvolvimento que transforma coletas limitadas em handoffs verificáveis para humanos e agentes.",
     context:
-      "Pesquisa de segurança gera muito ruído. Sem escopo, rastreabilidade e critérios de validação, automação apenas produz mais resultados difíceis de confiar.",
+      "Recon produz muitas saídas, mas pouco contexto portátil. Sem proveniência e limites explícitos, agentes podem confundir histórico, observação atual e cobertura incompleta.",
     decision:
-      "Fluxo em seis fases, escopo explícito por alvo, estado em JSON e ferramentas pequenas para HTTP, browser, DNS e callbacks fora de banda.",
+      "Uma CLI em Go com planejamento offline, aprovação humana por digest, execução limitada e compilação determinística. O agente recebe arquivos, nunca controle dos scanners.",
     evidence:
-      "Projeto Python público sob licença MIT, documentação de arquitetura, limites de corpo, rate limiting e proteções para caminhos e seletores.",
+      "Versão pública para Linux amd64, contratos de CLI e escopo, threat model, fixture sanitizado, checksums e testes automatizados.",
     result:
-      "A metodologia torna hipótese, execução e evidência inspecionáveis. Achados só avançam depois de reprodução e avaliação de impacto.",
-    id: "ghostclaw",
-    href: "https://github.com/vtrpza/ghost-claw",
-    linkLabel: "Inspecionar o GhostClaw",
-    tags: ["Python", "AppSec", "Evidência", "Bug bounty autorizado"],
+      "A versão atual preserva artefatos, fatos normalizados, lacunas e referências verificáveis. O projeto segue em desenvolvimento, com suporte deliberadamente restrito.",
+    id: "reconctx",
+    href: "https://github.com/vtrpza/reconctx",
+    linkLabel: "Inspecionar o reconctx",
+    tags: ["Go", "AppSec", "Proveniência", "Recon autorizado"],
   },
 ] as const;
 

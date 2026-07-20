@@ -27,16 +27,16 @@ const services = [
 
 const work = [
   {
-    title: "ReplyFlow",
+    title: "Repo Pulse",
     type: "Produto full-stack",
-    copy: "CRM de busca de trabalho que reúne descoberta de vagas, pipeline, contexto de recrutadores e comunicação em um fluxo único.",
-    proof: "Seis fontes de vagas, autenticação, e-mail, pagamentos e monitoramento em uma aplicação.",
+    copy: "Radar que encontra e compara repositórios GitHub para uma necessidade concreta com filtros e perfis de ranking ajustáveis.",
+    proof: "Busca via Worker, sinal comparativo de 0 a 100 e snapshots persistidos no Cloudflare D1.",
   },
   {
     title: "Blog VR",
     type: "Conteúdo e aquisição",
-    copy: "Motor editorial rápido e auditável para transformar conteúdo jurídico em aquisição orgânica, sem publicação automática por IA.",
-    proof: "Conteúdo, regras e integrações separados; testes e build antes de cada etapa concluída.",
+    copy: "Plataforma em produção para publicar conteúdo jurídico com fontes verificáveis e transformar tráfego orgânico em oportunidades comerciais.",
+    proof: "Worker SSR, D1, Workflows, quality gates, Turnstile e integração com Pipedrive no domínio próprio.",
   },
   {
     title: "Pesquisa de segurança",

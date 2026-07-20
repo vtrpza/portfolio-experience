@@ -19,7 +19,7 @@ describe("ExperienceShell", () => {
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /ver 3 trabalhos/i })).toBeInTheDocument();
     expect(screen.getByText(/MVPs em 18 meses/i)).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /ReplyFlow/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Repo Pulse/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /conversar por e-mail/i })).toBeInTheDocument();
   });
 
