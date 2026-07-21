@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://vitorpouza-dev.vhnpouza.workers.dev">
+  <a href="https://vitorpouza.dev">
     <img src="public/logo-vp-transparent.png" width="180" alt="Monograma VP em verde-limão" />
   </a>
 </p>
@@ -20,15 +20,15 @@
 </p>
 
 <p align="center">
-  <a href="https://vitorpouza-dev.vhnpouza.workers.dev"><strong>Explorar o site ↗</strong></a>
+  <a href="https://vitorpouza.dev"><strong>Explorar o site ↗</strong></a>
   &nbsp;·&nbsp;
-  <a href="https://vitorpouza-dev.vhnpouza.workers.dev/case-studies/">Ver trabalhos</a>
+  <a href="https://vitorpouza.dev/case-studies/">Ver trabalhos</a>
   &nbsp;·&nbsp;
-  <a href="https://vitorpouza-dev.vhnpouza.workers.dev/artigos/">Ler artigos</a>
+  <a href="https://vitorpouza.dev/artigos/">Ler artigos</a>
 </p>
 
 <p align="center">
-  <a href="https://vitorpouza-dev.vhnpouza.workers.dev">
+  <a href="https://vitorpouza.dev">
     <img src="public/og.png" alt="Transformo problemas complexos em produtos confiáveis — da decisão à produção. Vitor Pouza." width="100%" />
   </a>
 </p>
@@ -74,7 +74,7 @@ flowchart LR
 
 > **A experiência é a fonte. IA é ferramenta de redação.**
 
-O pipeline usa schemas estritos, allowlist de fontes, bloqueio de material sensível e `store: false` nas chamadas à API. A política completa está em [`/politica-editorial/`](https://vitorpouza-dev.vhnpouza.workers.dev/politica-editorial/).
+O pipeline usa schemas estritos, allowlist de fontes, bloqueio de material sensível e `store: false` nas chamadas à API. A política completa está em [`/politica-editorial/`](https://vitorpouza.dev/politica-editorial/).
 
 ## O que está publicado
 

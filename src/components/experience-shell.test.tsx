@@ -14,18 +14,18 @@ describe("ExperienceShell", () => {
     expect(screen.getByText("8+")).toBeInTheDocument();
     expect(screen.getByText(/MVPs entregues em 18 meses/i)).toBeInTheDocument();
     expect(screen.getByText("10k+")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /enviar contexto por e-mail/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /conte o contexto/i })).toHaveAttribute(
       "href",
-      "mailto:vhnpouza@gmail.com?subject=Novo%20projeto%20via%20vitorpouza.dev",
+      "mailto:vhnpouza@gmail.com",
     );
   });
 
   it("mostra cada projeto uma vez com problema, decisão, prova e evidência", () => {
     const { container } = render(<ExperienceShell />);
     const projects = [
-      ["Repo Pulse", "/case-studies#repo-pulse"],
-      ["Blog VR", "/case-studies#blog-vr"],
-      ["reconctx", "/case-studies#reconctx"],
+      ["reconctx", "https://github.com/vtrpza/reconctx"],
+      ["Blog VR", "https://github.com/vtrpza/blog-vr"],
+      ["Repo Pulse", "https://github.com/vtrpza/repo-pulse"],
     ] as const;
 
     expect(container.querySelectorAll("#trabalhos .case-entry")).toHaveLength(3);

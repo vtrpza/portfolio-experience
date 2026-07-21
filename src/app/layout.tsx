@@ -4,9 +4,11 @@ import "./globals.css";
 
 const siteUrl = "https://vitorpouza.dev";
 const isProduction = process.env.SITE_ENV === "production";
-const siteTitle = "Vitor Pouza — Produtos da decisão à produção";
+const siteTitle = "Vitor Pouza — Engenharia Full-Stack e Segurança";
 const siteDescription =
-  "Engenharia full-stack para fundadores e líderes de produto: sistemas, integrações e segurança da decisão à produção.";
+  "Portfólio de Vitor Pouza: produtos full-stack, plataformas SaaS, integrações de IA e segurança aplicada.";
+const socialDescription =
+  "Produtos full-stack, plataformas SaaS, integrações de IA e segurança aplicada.";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,21 +43,21 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     siteName: "Vitor Pouza",
     title: siteTitle,
-    description: siteDescription,
+    description: socialDescription,
     url: siteUrl,
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Vitor Pouza — produtos confiáveis da decisão à produção",
+        alt: "Vitor Pouza — Produtos full-stack confiáveis, do problema à produção.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
-    description: siteDescription,
+    description: socialDescription,
     images: ["/og.png"],
   },
   robots: { index: isProduction, follow: isProduction },

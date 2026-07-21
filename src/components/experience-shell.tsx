@@ -74,9 +74,14 @@ export function ExperienceShell({ latestArticle }: ExperienceShellProps) {
                       <dd>{layer.evidence}</dd>
                     </div>
                   </dl>
-                  <Link href={layer.href} aria-label={`Ver evidência de ${layer.project}`}>
-                    Evidência pública <span aria-hidden="true">→</span>
-                  </Link>
+                  <a
+                    href={layer.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Ver evidência de ${layer.project}`}
+                  >
+                    Ver no GitHub <span aria-hidden="true">↗</span>
+                  </a>
                 </article>
               </li>
             ))}
@@ -124,15 +129,11 @@ export function ExperienceShell({ latestArticle }: ExperienceShellProps) {
         <section className="home-contact" aria-labelledby="home-contact-title">
           <div>
             <p className="section-code">Próximo projeto</p>
-            <h2 id="home-contact-title">Vamos transformar uma decisão difícil em produto.</h2>
-            <p>Conte o contexto, o risco e onde você precisa chegar.</p>
+            <h2 id="home-contact-title">Antes do código, uma conversa sobre o problema certo.</h2>
           </div>
           <div>
-            <a
-              className="primary-action"
-              href="mailto:vhnpouza@gmail.com?subject=Novo%20projeto%20via%20vitorpouza.dev"
-            >
-              Enviar contexto por e-mail <span aria-hidden="true">↗</span>
+            <a className="primary-action" href="mailto:vhnpouza@gmail.com">
+              Conte o contexto <span aria-hidden="true">↗</span>
             </a>
             <Link className="text-action" href="/about/">Como trabalho</Link>
           </div>
