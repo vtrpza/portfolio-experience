@@ -125,7 +125,7 @@ export default function CaseStudiesPage() {
         <dl>
           <div><dt>08+</dt><dd>anos em engenharia full-stack</dd></div>
           <div><dt>04</dt><dd>MVPs em produção em 18 meses</dd></div>
-          <div><dt>10k+</dt><dd>usuários diários em plataformas enterprise</dd></div>
+          <div><dt>&gt;10k</dt><dd>usuários diários em plataformas enterprise</dd></div>
           <div><dt>02</dt><dd>anos como consultor independente</dd></div>
         </dl>
         <p>

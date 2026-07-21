@@ -64,7 +64,7 @@ export default function WorkanaPortfolioPage() {
           <div><dt>08+</dt><dd>anos de experiência</dd></div>
           <div><dt>04</dt><dd>MVPs em 18 meses</dd></div>
           <div><dt>02</dt><dd>anos como consultor</dd></div>
-          <div><dt>10k+</dt><dd>usuários em sistemas enterprise</dd></div>
+          <div><dt>&gt;10k</dt><dd>usuários em sistemas enterprise</dd></div>
         </dl>
       </header>
 
