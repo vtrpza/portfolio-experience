@@ -32,7 +32,7 @@ export function ExperienceShell({ latestArticle }: ExperienceShellProps) {
                 <dd>MVPs entregues em 18 meses</dd>
               </div>
               <div>
-                <dt>10k+</dt>
+                <dt>&gt;10k</dt>
                 <dd>usuários diários em produção</dd>
               </div>
             </dl>

@@ -13,7 +13,7 @@ describe("ExperienceShell", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("8+")).toBeInTheDocument();
     expect(screen.getByText(/MVPs entregues em 18 meses/i)).toBeInTheDocument();
-    expect(screen.getByText("10k+")).toBeInTheDocument();
+    expect(screen.getByText(">10k")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /conte o contexto/i })).toHaveAttribute(
       "href",
       "mailto:vhnpouza@gmail.com",
